@@ -1,0 +1,119 @@
+* {
+    box-sizing: border-box;
+    margin: auto;
+    max-width: 1280px;
+    font: arial;
+}
+nav {
+    background:  url("./makiety - szablon Orange/Images/orange-648218_1280.jpg") no-repeat center center;
+    background-size: cover;
+    height: 600px;
+    margin: auto 0;
+}
+nav ul {
+    background-color: #ce8b2e;
+    padding: 5px 40px;
+    display: block;
+}
+nav li {
+    display: inline-block;
+    list-style: none;
+}
+nav li:first-of-type {
+    width: calc(100% - 300px);
+    position: relative;
+    left: -22%;
+}
+.search  {
+    width: 250px;
+}
+nav form, .signin {
+    background-color: #ffc779;
+    color: black;
+    max-width: 300px;
+}
+nav img {
+    height: 13px;
+}
+.recipes img {
+    transform: rotate(-90deg);
+    margin-left: 5px;
+    padding-top: 5px;
+}
+nav input, nav button, nav div {
+    border: none;
+    padding: 5px 10px;
+    background: none;
+    color: white;
+}
+.recipes:hover {
+    background-color: #392202;
+}
+.recipes:hover .dropdown-content {
+    visibility: visible;
+}
+.dropdown-content {
+    visibility: hidden;
+    position: absolute;
+    background-color: #ffc779;
+    min-width: 100px;
+    margin: 0;
+    padding: 0;
+}
+.dropdown-button {
+    margin: 0;
+    padding: 10px 50px 10px 10px;
+    color: #392202;
+}
+
+.dropdown-button:hover {
+    color: white;
+    background-color: #7e4a04;
+}
+
+footer {
+    background-color: #ffca82;
+    display: block;
+    padding: 30px;
+}
+.copyright {
+    display: inline-block;
+    width: calc(100% - 300px);
+}
+.copyright p {
+    font-size: 12px;
+}
+.social-media {
+    text-align: right;
+    display: inline-block;
+    width: 280px;
+}
+.social-media img {
+    width: 40px;
+}
+main {
+    background:  url("./makiety - szablon Orange/Images/retina_wood.png") no-repeat center center;
+    background-size: cover;
+    display: block;
+    text-align: center;
+    padding: 50px;
+}
+main h1 {
+    font-family: arial;
+    font-weight: 100;
+    color: #392202;
+    padding-bottom: 20px;
+    font-size: 25px;
+}
+main img {
+    display: inline-block;
+    width: 500px;
+    margin: 10px 25px;
+}
+
+@media screen and (max-width: 700px) 
+{
+    nav {
+        
+    }
+}

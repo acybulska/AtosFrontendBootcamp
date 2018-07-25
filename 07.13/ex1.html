@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .name:valid {
+            background-color: greenyellow;
+        }
+
+        .name:invalid {
+            background-color: red;
+        }
+
+        .email:valid {
+            background-color: greenyellow;
+        }
+
+        .email:invalid {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <input class="name" type="text" placeholder="Name" required>
+        <br>
+        <input id="programmer" type="checkbox">
+        <label for="programmer">Programmer</label>
+        <br>
+        <input class="email" type="email" placeholder="email@x.com" required>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>

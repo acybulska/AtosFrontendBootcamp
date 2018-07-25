@@ -1,0 +1,100 @@
+<html>
+
+<head>
+    <style>
+        .container {
+            position: relative;
+            background-color: gray;
+        }
+
+        .text {
+            font-size: 20px;
+        }
+
+        .rectangle {
+            position: fixed;
+            padding: 50px 50px;
+            border: black 2px solid;
+            background-color: white;
+            left: 0%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <p class="text">
+            Sign in Home Library Wiki Learn Gallery Downloads Support Forums Blogs Microsoft Technet Image United States (English)Drop
+            down arrow Skip to locale bar Search TechNet with Bing Search TechNet with Bing post articlePost an article Translate
+            this pageMetro Translate Wikis - Page Details FIRST PUBLISHED BY Avatar of Dickran M Dickran M When: 21 Oct 2015
+            1:43 PM LAST REVISION BY Avatar of Dickran Dickran When: 1 Dec 2015 1:41 PM Revisions: 3 Comments: 4 Options
+            RSSSubscribe to Article (RSS) share this Share this Engage! Wiki Ninjas Blog (Announcements) Wiki Ninjas on Twitter
+            TechNet Wiki Discussion Forum Can You Improve This Article? Positively! Click Sign In to add the tip, solution,
+            correction or comment that will help other users. Report inappropriate content using these instructions. Wiki
+            > TechNet Articles > Restrict InfoPath Section Visibility Based on User ARTICLE HISTORY Restrict InfoPath Section
+            Visibility Based on User Applies To: SharePoint/InfoPath List Forms Introduction Sometimes we need to restrict
+            sections in forms to a certain group of users. Instead of simply marking them with a heading such as "HR Use
+            Only" or "Information Services Use Only", we can show or hide a section based on the logged in user. This article
+            describes how to achieve that in InfoPath. Table of Contents Introduction Creating the Lists Create the User
+            List Customizing the List Form Create the List Customize the list in InfoPath Manage the Data Connections Create
+            the Rules ​Creating the Lists In order to restrict sections in a form, we will need to create a list that contains
+            the users who will have access to the section. We will reference this list in a data connection in InfoPath.
+            Create the User List Create a custom list and name it ElevatedPermissionsUsers Create a new column: Column name:
+            AdminUser Type: Person or Group Required: Yes Allow selection of: People Only Accept the defaults for everything
+            else In Advanced Settings, Allow management of content types Change the Item content type and hide the Title
+            field Change the default All Items view: Remove the Title field Add Edit (link to edit item) and move it to the
+            first column Now that your list is ready, add a couple of site users to the list. Customizing the List Form If
+            you don't already have a list form that you need to customize, create one now. It can be based on a Custom list
+            template, or any other list template that you need, such as Tasks. For this excersize, I've created a custom
+            list and named it RestrictedInfoPathSections. Create the List Accept the default Title field Create the following
+            fields. For simplicity I kept them as single lines of text except the IsAdmin field, however they can be any
+            field type Name Type FirstName Single line of text LastName Single line of text Manager Single line of text EmployeeAction
+            Single line of text CurrentUser Single line of text (Hide in all views) IsAdmin Number (Hide in all views) Customize
+            the list in InfoPath On the list ribbon, click the Customize in InfoPath button On the newly created InfoPath
+            form Delete the last four rows including the fields, Manager, CurrentUsaer, IsAdmin and EmployeeAction Add a
+            new section to the bottom of the form Insert a Two-Column with Emphasis 3 table layout in the new section Add
+            the Manager and EmployeeAction fields in the new table Format and change themes to your liking Manage the Data
+            Connections Add a new connection to the ElevatedPermissionsUsers list and name it GET-ElevatedPermissionsUsers
+            Select the following fields: AdminUser ID Accept the defaults and complete the wizard steps Create the Rules
+            Select the DATA tab in the ribbon In the Rules section, click on the Form Load button Create a new Action rule
+            and name it Assign Admin Users Accept the default Condition - None - Rule runs when form is opened Create a new
+            Set a field's value action: Field: IsAdmin For Value, click on the fx button Click Insert a Field or Group Click
+            on Show advanced view Change the data source to GET-ElevatedPermissionsUsers Under dataFields, drill down and
+            select ID Click Filter Data Click Add In the first drop-down box change ID and click Select a field or group...
+            On the Data source dialog, under dataFields, drill down and select AdminUser AccountID Click OK Accept the default
+            in the second drop-down: is equal to From the third drop-down, select Use a fornula... On the Insert Formula
+            dialog, click the middle button Insert Function... Select the userName function and click OK Click OK several
+            times to close all dialog boxes The final Rule Details dialog should look similar to the image below: Click on
+            the section tab that contains your restricted content Create a new formatting rule and name it Hide From Non-Admin
+            Users Set the condition to IsAdmin = Is blank Select the Hide this control check-box Right-click on the CurrentUser
+            field in the fields section and select Field Properties... Change the Default Value by clicking the fx button
+            next to the Value text box Insert the userName function Publish the form Test the form by signing in to the site
+            with a user who is in the ElevatedPermissionsUsers list, then with one who's not in this list. post tagInfoPath,
+            SharePoint Facebook Image Twitter Image Digg Image del.icio.us Image More Comments Avatar of Roger556 Roger556
+            19 Nov 2015 7:55 PM Hello Dickran, Very good solution, I have implemented it in my form . However it has stopped
+            working I have checked the design etc but I am not getting error. Even though I am part of the group it wont
+            open the section. Please can you recommend any solution how to make this work again. Thanks in advance for all
+            your help Avatar of Dickran M Dickran M 20 Nov 2015 6:45 AM RE: Roger556 I'm glad you liked the article. Your
+            description of the issue is vague in order for me to understand what's happening. For example, when you say “it
+            stopped working”, do you mean it did work initially? Can you see the non-restricted section of the form? Here
+            are some suggestions: • Make sure the field in the ElevatedPermissionsUsers list is a person field • You should
+            add yourself and others that need elevated privileges to that list, not just the SharePoint site groups • The
+            CurrentUser and IsAdmin fields should be in the list. You don’t have to display them on the form, or views of
+            the list • You need to have the UserName function where needed, such as in 5.o. and 5.x. in the article • Finally,
+            if it still doesn’t work, rebuild the rules Avatar of Raja.U Raja.U 19 Jun 2017 3:17 PM Hi, Thanks for the post.
+            I followed the same steps, but it didn't worked for me. Please let me know do I need specify any others settings
+            in ElevatedPermissionsUsers list, I didn't set any default value of IsAdmin. Also IsAdmin is a number filed?
+            Appreciate your help! © 2015 Microsoft Corporation. All rights reserved. Terms of Use Trademarks Privacy Statement
+            5.6.915.0
+        </p>
+        <div class="rectangle">
+            Centered text
+        </div>
+    </div>
+</body>
+
+</html>

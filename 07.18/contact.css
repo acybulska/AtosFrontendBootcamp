@@ -1,0 +1,29 @@
+main form {
+    width: calc(100% - 600px);
+    vertical-align: top;
+    text-align: left;
+    display: inline-block;
+}
+main form p, main form input, main form textarea {
+    padding: 10px;
+    margin: 10px;
+    display: block;
+}
+
+main input, main .message  {
+    border: 1px solid gray;
+    padding: 10px;
+    opacity: 0.8;
+}
+
+main .message {
+    width: 550px;
+    height: 300px;
+    font-family: Arial;
+}
+
+main .submit {
+    opacity: 1;
+    border: none;
+    overflow: visible;
+}
