@@ -1,0 +1,128 @@
+<html>
+
+<head>
+    <style>
+        .container-float {
+            width: 960px;
+            overflow: auto;
+            /* FOR FLOAT */
+            display: block;
+            margin: 0 auto;
+        }
+
+        .container-inline {
+            width: 960px;
+            margin: 0 auto;
+            display: block;
+            margin-bottom: 50px;
+            font-size: 0;
+        }
+
+        .rec {
+            width: calc(25%-10px);
+            border: solid 2px dodgerblue;
+            box-shadow: 0px 2px 2px 0px grey;
+            margin: 10px;
+            padding: 50px 80px;
+            float: left;
+            text-align: center;
+            color: dodgerblue;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .block {
+            display: inline-block;
+            border: solid 2px dodgerblue;
+            box-shadow: 0px 4px 4px grey;
+            margin: 10px;
+            padding: 50px;
+            text-align: center;
+            color: dodgerblue;
+            font-weight: bold;
+            font-size: 18px;
+            box-sizing: border-box;
+        }
+
+        .rec:nth-of-type(4n+4) {
+            margin-right: 0px;
+        }
+
+        .rec:nth-of-type(4n+1) {
+            margin-left: 0px;
+        }
+
+        .block:nth-of-type(4n+4) {
+            margin-right: 0px;
+        }
+
+        .block:nth-of-type(4n+1) {
+            margin-left: 0px;
+        }
+
+        .column {
+            padding: 0 15px;
+            display: inline-block;
+            width: 25%;
+            font-size: 0;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-float">
+        <div class="rec">Float 1</div>
+        <div class="rec">Float 2</div>
+        <div class="rec">Float 3</div>
+        <div class="rec">Float 4</div>
+        <div class="rec">Float 5</div>
+        <div class="rec">Float 6</div>
+        <div class="rec">Float 7</div>
+        <div class="rec">Float 8</div>
+    </div>
+
+    <div class="container-inline">
+        <div class="block">Inline-block 1</div>
+        <div class="block">Inline-block 2</div>
+        <div class="block">Inline-block 3</div>
+        <div class="block">Inline-block 4</div>
+        <div class="block">Inline-block 5</div>
+        <div class="block">Inline-block 6</div>
+        <div class="block">Inline-block 7</div>
+        <div class="block">Inline-block 8</div>
+    </div>
+
+    <div class="container-inline">
+        <div class="row">
+            <div class="column">
+                <div class="block">Bootstrap 1</div>
+            </div>
+            <div class="column">
+                <div class="block">Bootstrap 2</div>
+            </div>
+            <div class="column">
+                <div class="block">Bootstrap 3</div>
+            </div>
+            <div class="column">
+                <div class="block">Bootstrap 4</div>
+            </div>
+            <div class="column">
+                <div class="block">Bootstrap 5</div>
+            </div>
+            <div class="column">
+                <div class="block">Bootstrap 6</div>
+            </div>
+            <div class="column">
+                <div class="block">Bootstrap 7</div>
+            </div>
+            <div class="column">
+                <div class="block">Bootstrap 8</div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

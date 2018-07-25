@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<!-- Two blocks responsive -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container-inline {
+            max-width: 90%;
+            margin: 0 auto;
+            display: block;
+            margin-bottom: 50px;
+            font-size: 0;
+            background-color: aliceblue;
+            padding: 10px;
+        }
+
+        .block {
+
+            width: calc(25%-10px);
+            display: inline-block;
+            border: solid 2px dodgerblue;
+            box-shadow: 0px 4px 4px grey;
+            margin: 10px;
+            padding: 50px;
+            text-align: center;
+            color: dodgerblue;
+            font-weight: bold;
+            font-size: 18px;
+            box-sizing: border-box;
+            background-color: white;
+        }
+
+        .block:hover {
+            transform: scale(1.1);
+            color: black;
+            border: black 2px solid;
+            box-shadow: 0px 8px 8px grey;
+        }
+
+        @media screen and (max-width: 768px) {
+            .block {
+                width: calc(50%-10px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-inline">
+        <div class="block">Inline-block 1</div>
+        <div class="block">Inline-block 2</div>
+        <div class="block">Inline-block 3</div>
+        <div class="block">Inline-block 4</div>
+        <div class="block">Inline-block 5</div>
+        <div class="block">Inline-block 6</div>
+        <div class="block">Inline-block 7</div>
+        <div class="block">Inline-block 8</div>
+    </div>
+</body>
+
+</html>

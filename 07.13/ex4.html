@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <picture>
+        <source media="(min-width: 800px)" srcset="charizard.png">
+        <source media="(min-width: 600px)" srcset="charmeleon.png">
+        <source media="(min-width: 400px)" srcset="charmander.png">
+        <img src="Charizard.png" alt="Charizard" width="400px">
+    </picture> -->
+
+    <img srcset="charmander.png 400w, charmeleon.png 600w, Charizard.png 800w" 
+        sizes="(max-width: 400px) 200px, (max-width: 600px) 250px, 400px" 
+        src="Charizard.png" alt="charizard">
+</body>
+
+</html>

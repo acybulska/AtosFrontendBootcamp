@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            display: grid;
+            height: 100vh;
+            grid-template-areas: "header header header" "nav article aside" "footer footer footer";
+        }
+
+        header {
+            background-color: lightgoldenrodyellow;
+            padding-bottom: 50px;
+            margin: 2px;
+            border: 1px solid black;
+            grid-row: 1;
+            grid-column-start: 1;
+            grid-area: header;
+            grid-column-end: 4;
+        }
+
+        footer {
+            background-color: lightgoldenrodyellow;
+            padding-bottom: 50px;
+            margin: 2px;
+            border: 1px solid black;
+            grid-row: 3;
+            grid-column-end: 4;
+            grid-column-start: 1;
+            grid-area: footer;
+        }
+
+        nav {
+            padding-bottom: 50px;
+            margin: 2px;
+            background-color: lightblue;
+            border: 1px solid black;
+            grid-row: 2;
+            grid-area: nav;
+            grid-column: 1;
+        }
+
+        aside {
+            padding-bottom: 50px;
+            margin: 2px;
+            background-color: lightblue;
+            border: 1px solid black;
+            grid-row: 2;
+            grid-area: aside;
+            grid-column: 3;
+        }
+
+        article {
+            background-color: rgb(185, 185, 0);
+            padding-bottom: 50px;
+            margin: 2px;
+            border: 1px solid black;
+            grid-row: 2;
+            grid-area: article;
+            grid-column: 2;
+        }
+
+        @media screen and (max-width: 767px) {
+            nav {
+                grid-row: 3;
+                grid-column-start: 1;
+                grid-column-end: 4;
+            }
+
+            article {
+                grid-row: 2;
+                grid-column-start: 1;
+                grid-column-end: 4;
+            }
+
+            aside {
+                grid-row: 4;
+                grid-column-start: 1;
+                grid-column-end: 4;
+            }
+            footer {
+                grid-row: 5;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>header</header>
+    <article>article</article>
+    <nav>nav</nav>
+    <aside>aside</aside>
+    <footer>footer</footer>
+</body>
+
+</html>

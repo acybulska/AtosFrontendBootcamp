@@ -1,0 +1,20 @@
+RWD
+1. Zastosowac wartosci % lub calc dla kolumn aby wypelnione zostalo 100% szerokosci okna przegladarki oraz aby zapewnic dopasowanie kolumn do wielkosci okna.
+2. Zastosowac media query aby lewe menu znalazlo sie ponad contentem ponizej szerokosci 768px (ipad pionowy).
+3. W media query zastosowac odpowiednia zmiane bazwej wielkosci fonta (dla elementu html)
+6. Poprawa dzialania bloków z tekstem. Wykorzystanie REM do zdefiniowania wysokosci boxa.
+7. Zastosowac w odpowiednich miejscach max/min -width oraz -height
+5. Hamburger menu z glównego menu
+4. Wykonac ladne zwijanie lewego menu w widoku mobilnym
+
+Bootstrap
+1. Zastapic kolmuny poprzez grid z bootstrapa.
+2. Menu zastapic elementem navigacji.
+3. Skorzystac z klas helperów.
+4. Dopasowac media query do bootstrapowych przedzialów skoków.
+5. Zastapic overflow hidden klasa clearfix lub row
+6. usunac box sizing z cssa, bo jest to domyslnie jest do wszystkich elementów w bootstrapie.
+
+WCAG
+1. Przeprowadzic analize które elementy nie spelniaja wymagan WCAG
+2. Dostosowac je.

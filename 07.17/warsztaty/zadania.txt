@@ -1,0 +1,14 @@
+1. Odpowiednio zmienic kod HTML aby byl poprawny i semantyczny
+1.1 Wyszukac grube bledy w kodzie html i css
+1.2 Zmienic elementy html na poprawne semantycznie
+2. Poprawic kod CSS
+Usunac bledy
+Sprawic aby sidebar mial szerokosc 200px, a kolumna z trescia wypelniala cala dostepna dalej zawartosc strony
+ustawic wysokosc headeru na 30vh i min-height 200px i logo ustawic w pionie
+do loga dodac animacje rotacji wokól wlasnej osi w czasie 1 sek. on hover
+do listy w menu po lewej dodac bullety w ksztalcie trójkatów (pseudoelement)
+Zmienic go na zgodny z dowolna metodyka
+
+
+
+
