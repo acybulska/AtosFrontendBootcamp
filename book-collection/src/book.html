@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
+        crossorigin="anonymous">
+    <title>Book Database</title>
+</head>
+
+<body>
+    <header>
+        <div class="navbar narvar-dark box-shadow bg-dark">
+            <div class="container d-flex justify-content-between">
+                <a class="navbar-brand" href="index.html">
+                    <h1 class="text-white">
+                        <i class="fas fa-book text-white"></i> My Book Colection</h1>
+                </a>
+                <button type="button" class="btn btn-link" onclick="getBook()">
+                    <h5 class="text-white">
+                        <i class="fas fa-plus text-white"></i> Add book</h5>
+                </button>
+                <form class="form-inline">
+                    <input type="text" aria-label="Search" class="form-control" placeholder="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-light" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </header>
+    <main class="container py-5">
+        <div class="row justify-content-center">
+            <form>
+                <div class="form-group">
+                    <label for="bookAuthor">Author</label>
+                    <input id="bookAuthor" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="bookTitle">Title</label>
+                    <input id="bookTitle" type="text" class="form-control">
+                </div>
+                <button type="button" class="btn btn-dark" onclick="saveBook()">Save</button>
+                <button type="button" class="btn btn-dark" onclick="deleteBook()">Delete</button>
+                <button type="button" class="btn btn-dark" onclick="goBack()">Back</button>
+            </form>
+        </div>
+    </main>
+    <footer class="bg-dark"></footer>
+    <script>
+        var id = null;
+        var data = null;
+        $(document).ready(function () {
+            id = window.location.hash.substring(1);
+            $.ajax({
+                url: 'http://bootcamp.opole.pl/books/my-books/mx5t',
+                type: 'GET',
+                success: function (result) {
+                    for (var i = 0; i < result.books.length; i++) {
+                        if (result.books[i].id == id) {
+                            document.getElementById("bookAuthor").value = result.books[i].description;
+                            document.getElementById("bookTitle").value = result.books[i].title;
+                        }
+                    }
+                    console.log("GET Status: " + result.status);
+                },
+                error: function () {
+                    window.location.href = 'notfound.html';
+                }
+            })
+        });
+
+        function saveBook() {
+            console.log(id);
+            data = {
+                "title": document.getElementById("bookTitle").value,
+                "description": document.getElementById("bookAuthor").value,
+                "id": id
+            };
+            console.log(data);
+            if (id === "undefined") {
+                console.log("add");
+                addBook();
+            }
+            else {
+                console.log("edit");
+                editBook();
+            }
+        };
+
+        function addBook() {
+            $.ajax({
+                url: 'http://bootcamp.opole.pl/books/add-book/mx5t',
+                type: 'POST',
+                data: data,
+                success: function (result) {
+                    alert("Book has been created!\nStatus: " + result.status);
+                    window.location.href = 'index.html';
+                },
+                error: function () {
+                    window.location.href = 'notfound.html';
+                }
+            })
+        };
+
+        function editBook() {
+            $.ajax({
+                url: 'http://bootcamp.opole.pl/books/edit-book/' + id + '/mx5t',
+                type: 'POST',
+                data: data,
+                success: function (result) {
+                    alert("Book has been edited!\nStatus: " + result.status);
+                    window.location.href = 'index.html';
+                    console.log(result);
+                },
+                error: function () {
+                    window.location.href = 'notfound.html';
+                }
+            })
+        };
+
+        function deleteBook() {
+            console.log(id);
+            $.ajax({
+                url: 'http://bootcamp.opole.pl/books/delete-book/' + id + '/mx5t',
+                type: 'DELETE',
+                success: function (result) {
+                    alert("Book has been deleted\nStatus:" + result.status);
+                    window.location.href = 'index.html';
+                },
+                error: function () {
+                    window.location.href = 'notfound.html';
+                }
+            })
+        };
+
+        function goBack() {
+            window.location.href = 'index.html';
+        };
+
+        function getBook(id) {
+            window.location.href = 'book.html' + '#' + id;
+            window.location.reload();
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
