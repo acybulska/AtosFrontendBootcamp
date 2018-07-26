@@ -153,6 +153,12 @@
             window.location.href = 'book.html' + '#' + id;
             window.location.reload();
         };
+
+        function searchElement() {
+            var elementValue = document.getElementById("searchInput").value;
+            console.log(elementValue);
+            window.location.href = 'search.html' + '#' + elementValue;
+        };
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>

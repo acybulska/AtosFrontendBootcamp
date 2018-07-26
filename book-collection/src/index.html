@@ -76,9 +76,10 @@
                         cell3.innerHTML = "<button type='button' class='btn btn-link' onclick='getBook("
                             + result.books[i].id + ")'><i class='far fa-edit'></i></button><button"
                             + "type='button' class='btn btn-link' onclick='deleteBook("
-                            + result.books[i].id + ")'><i class='far fa-trash-alt'></i></button>"
+                            + result.books[i].id + ")'><i class='far fa-trash-alt'></i></button>";
                     }
                     console.log("GET Status: " + result.status);
+                    
                 },
                 error: function () {
                     window.location.href = 'notfound.html';
