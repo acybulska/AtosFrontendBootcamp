@@ -95,7 +95,7 @@
             }
             else {
                 console.log("edit");
-                editBook();
+                editBook(id);
             }
         };
 
@@ -105,7 +105,6 @@
                 type: 'POST',
                 data: data,
                 success: function (result) {
-                    alert("Book has been created!\nStatus: " + result.status);
                     window.location.href = 'index.html';
                 },
                 error: function () {
@@ -114,13 +113,12 @@
             })
         };
 
-        function editBook() {
+        function editBook(id) {
             $.ajax({
                 url: 'http://bootcamp.opole.pl/books/edit-book/' + id + '/mx5t',
                 type: 'POST',
                 data: data,
                 success: function (result) {
-                    alert("Book has been edited!\nStatus: " + result.status);
                     window.location.href = 'index.html';
                     console.log(result);
                 },
@@ -132,17 +130,20 @@
 
         function deleteBook() {
             console.log(id);
-            $.ajax({
-                url: 'http://bootcamp.opole.pl/books/delete-book/' + id + '/mx5t',
-                type: 'DELETE',
-                success: function (result) {
-                    alert("Book has been deleted\nStatus:" + result.status);
-                    window.location.href = 'index.html';
-                },
-                error: function () {
-                    window.location.href = 'notfound.html';
-                }
-            })
+            var del = confirm("Are you sure you want to delete this book?");
+            if (del == true) {
+                $.ajax({
+                    url: 'http://bootcamp.opole.pl/books/delete-book/' + id + '/mx5t',
+                    type: 'DELETE',
+                    success: function (result) {
+                        alert("Book has been deleted\nStatus:" + result.status);
+                        window.location.href = 'index.html';
+                    },
+                    error: function () {
+                        window.location.href = 'notfound.html';
+                    }
+                })
+            }
         };
 
         function goBack() {

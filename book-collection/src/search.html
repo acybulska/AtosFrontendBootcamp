@@ -38,8 +38,17 @@
     </header>
     <main>
         <div class="container py-5">
-            <h2>Search Results</h2>
-            <table class="table table-stripped table-hover" id="searchResults">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h2>Search results</h2>
+                    <h5 id="sortedBy"></h5>
+                </div>
+                <div class="col-sm-4">
+                    <button type="button" class="btn btn-outline-dark btn-sm" onclick="sortAuthor(resultData)">Sort by author</button>
+                    <button type="button" class="btn btn-outline-dark btn-sm" onclick="sortTitle(resultData)">Sort by title</button>
+                </div>
+            </div>
+            <table class="table table-stripped table-hover" id="myBooks">
                 <tr>
                     <th>Author</th>
                     <th>Title</th>
@@ -55,16 +64,16 @@
     </footer>
 
     <script>
+        var resultData = [];
         $(document).ready(function () {
             var elementValue = window.location.hash.substring(1);
             elementValue = elementValue.toLowerCase().trim();
             elementValue = elementValue.replace("%20", " ");
-            console.log(elementValue);
             $.ajax({
                 url: 'http://bootcamp.opole.pl/books/my-books/mx5t',
                 type: 'GET',
                 success: function (result) {
-                    var searchTable = document.getElementById("searchResults");
+                    var searchTable = document.getElementById("myBooks");
                     var k = 0;
                     for (var i = 0; i < result.books.length; i++) {
                         if (result.books[i].description.toLowerCase().search(elementValue) !== -1) {
@@ -77,8 +86,9 @@
                             cell2.innerHTML = result.books[i].title;
                             cell3.innerHTML = "<button type='button' class='btn btn-link' onclick='getBook("
                                 + result.books[i].id + ")'><i class='far fa-edit'></i></button><button"
-                                + "type='button' class='btn btn-link' onclick='deleteBook("
+                                + "type='button' class='btn btn-link' onclick='deleteListedBook("
                                 + result.books[i].id + ")'><i class='far fa-trash-alt'></i></button>";
+                            resultData.push(result.books[i]);
                         }
                         else if (result.books[i].title.toLowerCase().search(elementValue) != -1) {
                             k++;
@@ -90,10 +100,10 @@
                             cell2.innerHTML = result.books[i].title;
                             cell3.innerHTML = "<button type='button' class='btn btn-link' onclick='getBook("
                                 + result.books[i].id + ")'><i class='far fa-edit'></i></button><button"
-                                + "type='button' class='btn btn-link' onclick='deleteBook("
+                                + "type='button' class='btn btn-link' onclick='deleteListedBook("
                                 + result.books[i].id + ")'><i class='far fa-trash-alt'></i></button>";
+                                resultData.push(result.books[i]);
                         }
-                        console.log("k=" + k);
                     }
                     if (k === 0) {
                         var row = searchTable.insertRow(1);
@@ -110,6 +120,7 @@
                     window.location.href = 'notfound.html';
                 }
             })
+            console.log(resultData);
         });
 
         function searchNewElement() {
