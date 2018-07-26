@@ -9,6 +9,7 @@ Due to absence at the Monday workshop, I had no idea how to test my application 
 
 Commit 26.07.2018:
 Adding the search to the application.
+QUESTION: Should I use array.filter() method?
 
 ************************************************
 
