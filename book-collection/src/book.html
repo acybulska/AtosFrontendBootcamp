@@ -39,17 +39,28 @@
     <main class="container py-5">
         <div class="row justify-content-center">
             <form>
-                <div class="form-group">
-                    <label for="bookAuthor">Author</label>
-                    <input id="bookAuthor" type="text" class="form-control">
+                <div class="row justify-content-center">
+                    <div class="form-group">
+                        <label for="bookAuthor">Author</label>
+                        <input id="bookAuthor" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="bookTitle">Title</label>
+                        <input id="bookTitle" type="text" class="form-control">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="bookTitle">Title</label>
-                    <input id="bookTitle" type="text" class="form-control">
+                <div class="row justify-content-center" id="addAnotherId">
+
                 </div>
-                <button type="button" class="btn btn-dark" onclick="saveBook()">Save</button>
-                <button type="button" class="btn btn-dark" id="deleteBtn" onclick="deleteBook()">Delete</button>
-                <button type="button" class="btn btn-dark" onclick="goBack()">Back</button>
+                <div class="row justify-content-center" id="addAnother">
+                    <button type="button" class="btn btn-link">
+                        <i class="far fa-plus-square" onclick="addAnotherBook()"></i> Add another</button>
+                </div>
+                <div class="row justify-content-center">
+                    <button type="button" class="btn btn-dark" onclick="saveBook()">Save</button>
+                    <button type="button" class="btn btn-dark" id="deleteBtn" onclick="deleteBook()">Delete</button>
+                    <button type="button" class="btn btn-dark" onclick="goBack()">Back</button>
+                </div>
             </form>
         </div>
     </main>
@@ -67,6 +78,7 @@
                 document.getElementById("deleteBtn").style.visibility = "hidden";
             }
             else {
+                document.getElementById("addAnother").style.visibility = "hidden";
                 $.ajax({
                     url: 'http://bootcamp.opole.pl/books/my-books/mx5t',
                     type: 'GET',
@@ -85,6 +97,18 @@
                 })
             }
         });
+
+        function addAnotherBook() {
+            var elm = '<div class="form-group"> ' +
+                '<label for="bookAuthor">Author</label>' +
+                '<input id="bookAuthor" type="text" class="form-control">' +
+                '</div>' +
+                '<div class="form-group"> ' +
+                '<label for="bookTitle">Title</label>' +
+                '<input id="bookTitle" type="text" class="form-control">' +
+                '</div>';
+            $("#addAnotherId").append(elm);
+        }
 
         function saveBook() {
             data = {

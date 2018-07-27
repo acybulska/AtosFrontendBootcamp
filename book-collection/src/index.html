@@ -84,18 +84,7 @@
                     var table = document.getElementById("myBooks");
                     resultData=result.books;
                     for (var i = 0; i < result.books.length; i++) {
-                        var row = table.insertRow(i + 1);
-                        var cell0 = row.insertCell(0);
-                        var cell1 = row.insertCell(1);
-                        var cell2 = row.insertCell(2);
-                        var cell3 = row.insertCell(3);
-                        cell0.innerHTML = "<input type='checkbox' id='bulkCheckbox"+result.books[i].id+"' style='margin-left: 30px'>";
-                        cell1.innerHTML = result.books[i].description;
-                        cell2.innerHTML = result.books[i].title;
-                        cell3.innerHTML = "<button type='button' class='btn btn-link' onclick='getBook("
-                            + result.books[i].id + ")'><i class='far fa-edit'></i></button><button "
-                            + "type='button' class='btn btn-link' onclick='deleteListedBook("
-                            + result.books[i].id + ")'><i class='far fa-trash-alt'></i></button>";
+                        addRow(result.books,i);
                     }
                     console.log("GET Status: " + result.status);
                 },

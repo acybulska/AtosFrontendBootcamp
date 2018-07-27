@@ -1,3 +1,12 @@
+var titleRow = '<tr><th>' +
+    '<div class="dropdown">' +
+    '<button class="btn btn-outline-dark dropdown-toggle" type="button" id="chooseAction"' +
+    'data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action' +
+    '</button><div class="dropdown-menu" aria-labelledby="dropdownMenu2">' +
+    '<button class="dropdown-item" type="button" onclick="bulkDelete(getIds(resultData))">Delete</button>' +
+    '</div></div>' +
+    '</th><th>Author</th><th>Title</th><th></th></tr>';
+
 function deleteListedBook(id) {
     var del = confirm("Are you sure you want to delete this book?");
     if (del == true) {
@@ -28,7 +37,6 @@ function searchElement() {
 function sortAuthor(data) {
     $("#sortedBy").text("Sorted by author");
     $("#myBooks tr").remove();
-    var titleRow = "<tr><th>Author</th><th>Title</th><th></th></tr>";
     $("#myBooks").append(titleRow);
     $(function () {
 
@@ -39,16 +47,7 @@ function sortAuthor(data) {
         })
         var table = document.getElementById("myBooks");
         for (var i = 0; i < data.length; i++) {
-            var row = table.insertRow(i + 1);
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-            cell1.innerHTML = data[i].description;
-            cell2.innerHTML = data[i].title;
-            cell3.innerHTML = "<button type='button' class='btn btn-link' onclick='getBook("
-                + data[i].id + ")'><i class='far fa-edit'></i></button><button"
-                + "type='button' class='btn btn-link' onclick='deleteBook("
-                + data[i].id + ")'><i class='far fa-trash-alt'></i></button>";
+            addRow(data, i);
         }
     });
 }
@@ -56,10 +55,8 @@ function sortAuthor(data) {
 function sortTitle(data) {
     $("#sortedBy").text("Sorted by title");
     $("#myBooks tr").remove();
-    var titleRow = "<tr><th>Author</th><th>Title</th><th></th></tr>";
     $("#myBooks").append(titleRow);
     $(function () {
-
         data.sort(function (a, b) {
             if (a.title < b.title) return -1;
             if (b.title < a.title) return 1;
@@ -67,16 +64,7 @@ function sortTitle(data) {
         })
         var table = document.getElementById("myBooks");
         for (var i = 0; i < data.length; i++) {
-            var row = table.insertRow(i + 1);
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-            cell1.innerHTML = data[i].description;
-            cell2.innerHTML = data[i].title;
-            cell3.innerHTML = "<button type='button' class='btn btn-link' onclick='getBook("
-                + data[i].id + ")'><i class='far fa-edit'></i></button><button"
-                + "type='button' class='btn btn-link' onclick='deleteBook("
-                + data[i].id + ")'><i class='far fa-trash-alt'></i></button>";
+            addRow(data, i);
         }
     });
 }
@@ -93,11 +81,11 @@ function bulkDelete(ids) {
                     console.log("Delete book result:" + result.status);
                 },
                 error: function () {
-                    console.log("Delete book ERROR");                    
+                    console.log("Delete book ERROR");
                 }
             })
         }
-       window.location.href="index.html";
+        window.location.href = "index.html";
     }
 }
 
@@ -110,4 +98,35 @@ function getIds(data) {
     }
     console.log(ids);
     return ids;
+}
+
+function addRow(books, i) {
+    var row = table.insertRow(i + 1);
+    var cell0 = row.insertCell(0);
+    var cell1 = row.insertCell(1);
+    var cell2 = row.insertCell(2);
+    var cell3 = row.insertCell(3);
+    cell0.innerHTML = "<input type='checkbox' id='bulkCheckbox" + books[i].id + "' style='margin-left: 30px'>";
+    cell1.innerHTML = books[i].description;
+    cell2.innerHTML = books[i].title;
+    cell3.innerHTML = "<button type='button' class='btn btn-link' onclick='getBook("
+        + books[i].id + ")'><i class='far fa-edit'></i></button><button "
+        + "type='button' class='btn btn-link' onclick='deleteListedBook("
+        + books[i].id + ")'><i class='far fa-trash-alt'></i></button>";
+}
+
+function addFilteredRow(books, i, k) {
+    var row = searchTable.insertRow(k);
+    var cell0 = row.insertCell(0);
+    var cell1 = row.insertCell(1);
+    var cell2 = row.insertCell(2);
+    var cell3 = row.insertCell(3);
+    cell0.innerHTML = "<input type='checkbox' id='bulkCheckbox" + result.books[i].id + "' style='margin-left: 30px'>";
+    cell1.innerHTML = result.books[i].description;
+    cell2.innerHTML = result.books[i].title;
+    cell3.innerHTML = "<button type='button' class='btn btn-link' onclick='getBook("
+        + result.books[i].id + ")'><i class='far fa-edit'></i></button><button"
+        + "type='button' class='btn btn-link' onclick='deleteListedBook("
+        + result.books[i].id + ")'><i class='far fa-trash-alt'></i></button>";
+    resultData.push(result.books[i]);
 }
