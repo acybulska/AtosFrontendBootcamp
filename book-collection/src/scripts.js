@@ -47,7 +47,7 @@ function sortAuthor(data) {
         })
         var table = document.getElementById("myBooks");
         for (var i = 0; i < data.length; i++) {
-            addRow(data, i);
+            addRow(data, i, table);
         }
     });
 }
@@ -64,7 +64,7 @@ function sortTitle(data) {
         })
         var table = document.getElementById("myBooks");
         for (var i = 0; i < data.length; i++) {
-            addRow(data, i);
+            addRow(data, i, table);
         }
     });
 }
@@ -100,7 +100,7 @@ function getIds(data) {
     return ids;
 }
 
-function addRow(books, i) {
+function addRow(books, i, table) {
     var row = table.insertRow(i + 1);
     var cell0 = row.insertCell(0);
     var cell1 = row.insertCell(1);
@@ -115,18 +115,18 @@ function addRow(books, i) {
         + books[i].id + ")'><i class='far fa-trash-alt'></i></button>";
 }
 
-function addFilteredRow(books, i, k) {
-    var row = searchTable.insertRow(k);
+function addFilteredRow(books, i, k, table) {
+    var row = table.insertRow(k);
     var cell0 = row.insertCell(0);
     var cell1 = row.insertCell(1);
     var cell2 = row.insertCell(2);
     var cell3 = row.insertCell(3);
-    cell0.innerHTML = "<input type='checkbox' id='bulkCheckbox" + result.books[i].id + "' style='margin-left: 30px'>";
-    cell1.innerHTML = result.books[i].description;
-    cell2.innerHTML = result.books[i].title;
+    cell0.innerHTML = "<input type='checkbox' id='bulkCheckbox" + books[i].id + "' style='margin-left: 30px'>";
+    cell1.innerHTML = books[i].description;
+    cell2.innerHTML = books[i].title;
     cell3.innerHTML = "<button type='button' class='btn btn-link' onclick='getBook("
-        + result.books[i].id + ")'><i class='far fa-edit'></i></button><button"
+        + books[i].id + ")'><i class='far fa-edit'></i></button><button"
         + "type='button' class='btn btn-link' onclick='deleteListedBook("
-        + result.books[i].id + ")'><i class='far fa-trash-alt'></i></button>";
-    resultData.push(result.books[i]);
+        + books[i].id + ")'><i class='far fa-trash-alt'></i></button>";
+    resultData.push(books[i]);
 }

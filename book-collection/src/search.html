@@ -89,11 +89,11 @@
                     for (var i = 0; i < result.books.length; i++) {
                         if (result.books[i].description.toLowerCase().search(elementValue) !== -1) {
                             k++;
-                            addFilteredRow(result.books,i,k);
+                            addFilteredRow(result.books,i,k,searchTable);
                         }
                         else if (result.books[i].title.toLowerCase().search(elementValue) != -1) {
                             k++;
-                            addFilteredRow(result.books,i,k);                           
+                            addFilteredRow(result.books,i,k,searchTable);                           
                         }
                     }
                     if (k === 0) {
