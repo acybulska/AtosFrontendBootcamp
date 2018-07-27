@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
         crossorigin="anonymous">
     <link href="styles.css" rel="stylesheet">
-    <title>Book Database</title>
+    <title>Book Details</title>
 </head>
 
 <body>
@@ -39,22 +39,10 @@
     <main class="container py-5">
         <div class="row justify-content-center">
             <form>
+                <div id="anotherBook"></div>
                 <div class="row justify-content-center">
-                    <div class="form-group">
-                        <label for="bookAuthor">Author</label>
-                        <input id="bookAuthor" type="text" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="bookTitle">Title</label>
-                        <input id="bookTitle" type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="row justify-content-center" id="addAnotherId">
-
-                </div>
-                <div class="row justify-content-center" id="addAnother">
-                    <button type="button" class="btn btn-link">
-                        <i class="far fa-plus-square" onclick="addAnotherBook()"></i> Add another</button>
+                    <button id="addAnotherBtn" type="button" class="btn btn-link" onclick="addAnotherBook(++bulkAddCounter)">
+                        <i class="far fa-plus-square"></i> Add another</button>
                 </div>
                 <div class="row justify-content-center">
                     <button type="button" class="btn btn-dark" onclick="saveBook()">Save</button>
@@ -71,14 +59,15 @@
     </footer>
     <script>
         var id = null;
-        var data = null;
+        var bulkAddCounter = 0;
         $(document).ready(function () {
             id = window.location.hash.substring(1);
+            addAnotherBook(0);
             if (id == "undefined") {
                 document.getElementById("deleteBtn").style.visibility = "hidden";
             }
             else {
-                document.getElementById("addAnother").style.visibility = "hidden";
+                document.getElementById("addAnotherBtn").style.visibility = "hidden";
                 $.ajax({
                     url: 'http://bootcamp.opole.pl/books/my-books/mx5t',
                     type: 'GET',
@@ -98,25 +87,20 @@
             }
         });
 
-        function addAnotherBook() {
-            var elm = '<div class="form-group"> ' +
+        function addAnotherBook(id) {
+            var elm = '<div class="row justify-content-center">' +
+                '<div class="form-group"> ' +
                 '<label for="bookAuthor">Author</label>' +
-                '<input id="bookAuthor" type="text" class="form-control">' +
+                '<input id="bookAuthor' + id + '" type="text" class="form-control">' +
                 '</div>' +
                 '<div class="form-group"> ' +
                 '<label for="bookTitle">Title</label>' +
-                '<input id="bookTitle" type="text" class="form-control">' +
-                '</div>';
-            $("#addAnotherId").append(elm);
+                '<input id="bookTitle' + id + '" type="text" class="form-control">' +
+                '</div></div>';
+            $("#anotherBook").append(elm);
         }
 
         function saveBook() {
-            data = {
-                "title": document.getElementById("bookTitle").value,
-                "description": document.getElementById("bookAuthor").value,
-                "id": id
-            };
-            console.log(data);
             if (id === "undefined") {
                 addBook();
             }
@@ -126,24 +110,35 @@
         };
 
         function addBook() {
-            $.ajax({
+            for (var i = 0; i < bulkAddCounter+1; i++) {
+                var book = {
+                    "title": document.getElementById("bookTitle" + i).value,
+                    "description": document.getElementById("bookAuthor" + i).value
+                };
+                $.ajax({
                 url: 'http://bootcamp.opole.pl/books/add-book/mx5t',
                 type: 'POST',
-                data: data,
+                data: book,
                 success: function (result) {
-                    window.location.href = 'index.html';
+                    console.log("Status "+i+": "+result.status);
                 },
                 error: function () {
-                    window.location.href = 'notfound.html';
+                    console.log("Status "+i+": error");
                 }
             })
+            }
         };
 
         function editBook(id) {
+            var book = {
+                "title": document.getElementById("bookTitle0").value,
+                "description": document.getElementById("bookAuthor0").value,
+                "id": id
+            };
             $.ajax({
                 url: 'http://bootcamp.opole.pl/books/edit-book/' + id + '/mx5t',
                 type: 'POST',
-                data: data,
+                data: book,
                 success: function (result) {
                     window.location.href = 'index.html';
                 },
