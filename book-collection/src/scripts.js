@@ -1,6 +1,6 @@
 function deleteListedBook(id) {
     var del = confirm("Are you sure you want to delete this book?");
-    if(del == true) {
+    if (del == true) {
         $.ajax({
             url: 'http://bootcamp.opole.pl/books/delete-book/' + id + '/mx5t',
             type: 'DELETE',
@@ -79,4 +79,35 @@ function sortTitle(data) {
                 + data[i].id + ")'><i class='far fa-trash-alt'></i></button>";
         }
     });
+}
+
+function bulkDelete(ids) {
+    var del = confirm("Are you sure you want to delete these books?");
+    if (del == true) {
+        var i = 0;
+        for (i = 0; i < ids.length; i++) {
+            $.ajax({
+                url: 'http://bootcamp.opole.pl/books/delete-book/' + ids[i] + '/mx5t',
+                type: 'DELETE',
+                success: function (result) {
+                    console.log("Delete book result:" + result.status);
+                },
+                error: function () {
+                    console.log("Delete book ERROR");                    
+                }
+            })
+        }
+       window.location.href="index.html";
+    }
+}
+
+function getIds(data) {
+    var ids = [];
+    for (let i = 0; i < data.length; i++) {
+        if (document.getElementById("bulkCheckbox" + data[i].id).checked === true) {
+            ids.push(data[i].id);
+        }
+    }
+    console.log(ids);
+    return ids;
 }
