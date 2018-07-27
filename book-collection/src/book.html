@@ -110,23 +110,27 @@
         };
 
         function addBook() {
-            for (var i = 0; i < bulkAddCounter+1; i++) {
+            for (var i = 0; i < bulkAddCounter + 1; i++) {
                 var book = {
                     "title": document.getElementById("bookTitle" + i).value,
                     "description": document.getElementById("bookAuthor" + i).value
                 };
-                $.ajax({
-                url: 'http://bootcamp.opole.pl/books/add-book/mx5t',
-                type: 'POST',
-                data: book,
-                success: function (result) {
-                    console.log("Status "+i+": "+result.status);
-                },
-                error: function () {
-                    console.log("Status "+i+": error");
+                if (book.title !== "" || book.description !== "") {
+                    $.ajax({
+                        url: 'http://bootcamp.opole.pl/books/add-book/mx5t',
+                        type: 'POST',
+                        data: book,
+                        success: function (result) {
+                            console.log("Status " + i + ": " + result.status);
+                        },
+                        error: function () {
+                            console.log("Status " + i + ": error");
+                        }
+                    })
                 }
-            })
             }
+            alert("OK");
+            window.location.href="index.html";
         };
 
         function editBook(id) {

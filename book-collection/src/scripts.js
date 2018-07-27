@@ -85,6 +85,7 @@ function bulkDelete(ids) {
                 }
             })
         }
+        alert("Books deleted");
         window.location.href = "index.html";
     }
 }
