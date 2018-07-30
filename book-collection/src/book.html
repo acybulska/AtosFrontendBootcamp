@@ -58,10 +58,28 @@
         <form>
             <fieldset id="fileBooks">
                 <div class="row justify-content-center">
-                    <p>Description of the file: how it should be etc.</p>
+                    <p>Choose a text file with books entered in such manner: [{"title" : "Book 1 title", "description" : "Book
+                        1 author"}, {"title" : "Book 2 title", "description" : "Book 2 author"}, ... ,{"title" : "Book N
+                        title", "description" : "Book N author"}]
+                    </p>
                 </div>
                 <div class="row justify-content-center">
-                    <button id="addFromFileCancelBtn" type="button" class="btn btn-dark" onclick="addFromFile2()">Cancel</button>
+                    <form class="form-group">
+                        <input id="addFile" type="file" accept="text/*">
+                        <label class="sr-only" for="addFile">Add file</label>
+                        <div class="input-group-append">
+                            <button id="addFileSubmit" class="btn btn-dark" onclick="saveBooksFromFile()" type="button">Submit</button>
+                        </div>
+                    </form>
+                    <button id="addFromFileCancelBtn" type="button" class="btn btn-outline-dark" onclick="addFromFileCancel()">Cancel</button>
+                </div>
+                <div class="row justify-content-center">
+                    <table id="booksFileTable">
+                        <tbody>
+                          
+
+                        </tbody>
+                    </table>
                 </div>
             </fieldset>
         </form>
@@ -74,6 +92,9 @@
     <script>
         var id = null;
         var bulkAddCounter = 0;
+        var booksFile = [];
+        document.getElementById('addFile').addEventListener('change', readSingleFile, false);
+
         $(document).ready(function () {
             id = window.location.hash.substring(1);
             addAnotherBook(0);
@@ -109,10 +130,58 @@
             document.getElementById("fileBooks").style.visibility = "visible";
 
         }
-        function addFromFile2() {
+        function addFromFileCancel() {
             document.getElementById("fileBooks").style.visibility = "hidden";
             document.getElementById("separateBooks").disabled = false;
+            // TODO delete file from memory
         }
+        function readSingleFile(evt) {
+            var f = evt.target.files[0];
+            if (f) {
+                var r = new FileReader();
+                r.onload = function (e) {
+                    var contents = e.target.result;
+                    console.log("Got the file with: " + contents);
+                    booksFile = JSON.parse(contents);
+                    $("#booksFileTable").append('<tr><th>PREVIEW</th><th></th></tr>'+
+                            '<tr><th>Title</th><th>Author</th></tr>');
+                    for (var k = 0; k < booksFile.length; k++) {
+                        $("#booksFileTable").append('<tr><td>' + booksFile[k].title + '</td><td>' + booksFile[k].description + '</td></tr>');
+                    }
+                }
+                r.readAsText(f);
+            } else {
+                alert("Failed to load file");
+            }
+        }
+
+        function saveBooksFromFile() {
+            if (booksFile !== "" && booksFile !== []) {
+                for (var i = 0; i < booksFile.length + 1; i++) {
+                    var book = {
+                        "title": booksFile[i].title,
+                        "description": booksFile[i].description
+                    };
+                    if (book.title !== "" || book.description !== "") {
+                        $.ajax({
+                            url: 'http://bootcamp.opole.pl/books/add-book/mx5t',
+                            type: 'POST',
+                            data: book,
+                            success: function (result) {
+                                console.log("Status " + i + ": " + result.status);
+                            },
+                            error: function () {
+                                console.log("Status " + i + ": error");
+                            }
+                        })
+                    }
+                }
+            }
+            else {
+                console.log("Empty or unknown file");
+            }
+        }
+
         function addAnotherBook(id) {
             var elm = '<div class="row justify-content-center">' +
                 '<div class="form-group"> ' +
