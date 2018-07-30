@@ -73,9 +73,9 @@ function bulkDelete(ids) {
     var del = confirm("Are you sure you want to delete these books?");
     if (del == true) {
         var i = 0;
-        for (i = 0; i < ids.length; i++) {
+        for (const i of ids) {
             $.ajax({
-                url: 'http://bootcamp.opole.pl/books/delete-book/' + ids[i] + '/mx5t',
+                url: 'http://bootcamp.opole.pl/books/delete-book/' + i + '/mx5t',
                 type: 'DELETE',
                 success: function (result) {
                     console.log("Delete book result:" + result.status);
