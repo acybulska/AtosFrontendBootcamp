@@ -39,13 +39,13 @@
     <main class="container py-5">
         <form>
             <fieldset id="separateBooks">
-                <div class="row justify-content-center" id="anotherBook"></div>
+                <div id="anotherBook"></div>
                 <div class="row justify-content-center">
                     <button id="addAnotherBtn" type="button" class="btn btn-link" onclick="addAnotherBook(++bulkAddCounter)">
                         <i class="far fa-plus-square"></i> Add another</button>
                 </div>
                 <div class="row justify-content-center">
-                    <button type="button" class="btn btn-dark" onclick="saveBook()">Save</button>
+                    <button type="button" class="btn btn-dark" onclick="saveBooks()">Save</button>
                     <button type="button" class="btn btn-dark" id="deleteBtn" onclick="deleteBook()">Delete</button>
                     <button type="button" class="btn btn-dark" onclick="goBack()">Back</button>
                 </div>
@@ -68,17 +68,14 @@
                         <input id="addFile" type="file" accept="text/*">
                         <label class="sr-only" for="addFile">Add file</label>
                         <div class="input-group-append">
-                            <button id="addFileSubmit" class="btn btn-dark" onclick="saveBooksFromFile()" type="button">Submit</button>
+                            <button id="addFileSubmit" class="btn btn-dark" onclick="saveBooks()" type="button">Submit</button>
                         </div>
                     </form>
                     <button id="addFromFileCancelBtn" type="button" class="btn btn-outline-dark" onclick="addFromFileCancel()">Cancel</button>
                 </div>
                 <div class="row justify-content-center">
                     <table id="booksFileTable">
-                        <tbody>
-                          
-
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
             </fieldset>
@@ -133,7 +130,6 @@
         function addFromFileCancel() {
             document.getElementById("fileBooks").style.visibility = "hidden";
             document.getElementById("separateBooks").disabled = false;
-            // TODO delete file from memory
         }
         function readSingleFile(evt) {
             var f = evt.target.files[0];
@@ -143,8 +139,8 @@
                     var contents = e.target.result;
                     console.log("Got the file with: " + contents);
                     booksFile = JSON.parse(contents);
-                    $("#booksFileTable").append('<tr><th>PREVIEW</th><th></th></tr>'+
-                            '<tr><th>Title</th><th>Author</th></tr>');
+                    $("#booksFileTable").append('<tr><th>PREVIEW</th><th></th></tr>' +
+                        '<tr><th>Title</th><th>Author</th></tr>');
                     for (var k = 0; k < booksFile.length; k++) {
                         $("#booksFileTable").append('<tr><td>' + booksFile[k].title + '</td><td>' + booksFile[k].description + '</td></tr>');
                     }
@@ -155,33 +151,58 @@
             }
         }
 
-        function saveBooksFromFile() {
-            if (booksFile !== "" && booksFile !== []) {
-                for (var i = 0; i < booksFile.length + 1; i++) {
-                    var book = {
-                        "title": booksFile[i].title,
-                        "description": booksFile[i].description
-                    };
-                    if (book.title !== "" || book.description !== "") {
-                        $.ajax({
-                            url: 'http://bootcamp.opole.pl/books/add-book/mx5t',
-                            type: 'POST',
-                            data: book,
-                            success: function (result) {
-                                console.log("Status " + i + ": " + result.status);
-                            },
-                            error: function () {
-                                console.log("Status " + i + ": error");
-                            }
-                        })
+        function saveBooks() {
+            if (id === "undefined") {
+
+                if (booksFile === [] && bulkAddCounter === 0) {
+                    console.log("Noting to add");
+                }
+                else if (bulkAddCounter !== 0) {
+                    for (const i of bulkAddCounter) {
+                        var book = {
+                            "title": document.getElementById("bookTitle" + i).value,
+                            "description": document.getElementById("bookAuthor" + i).value
+                        };
+                        addNextBook(book);
                     }
                 }
+                else {
+                    if (booksFile !== "" && booksFile !== []) {
+                        for (const book of booksFile) {
+                            var bookJson = {
+                                "title": item.title,
+                                "description": item.description
+                            };
+                            addNextBook(bookJson);
+                        }
+                    }
+                    else {
+                        console.log("Empty or unknown file");
+                    }
+                }
+                alert("OK");
+                window.location.href = "index.html";
             }
             else {
-                console.log("Empty or unknown file");
+                editBook(id);
             }
         }
 
+        function addNextBook(item) {
+            if (item.title !== "" || item.description !== "") {
+                $.ajax({
+                    url: 'http://bootcamp.opole.pl/books/add-book/mx5t',
+                    type: 'POST',
+                    data: item,
+                    success: function (result) {
+                        console.log("Status " + i + ": " + result.status);
+                    },
+                    error: function () {
+                        console.log("Status " + i + ": error");
+                    }
+                })
+            }
+        }
         function addAnotherBook(id) {
             var elm = '<div class="row justify-content-center">' +
                 '<div class="form-group"> ' +
@@ -194,39 +215,6 @@
                 '</div></div>';
             $("#anotherBook").append(elm);
         }
-
-        function saveBook() {
-            if (id === "undefined") {
-                addBook();
-            }
-            else {
-                editBook(id);
-            }
-        };
-
-        function addBook() {
-            for (var i = 0; i < bulkAddCounter + 1; i++) {
-                var book = {
-                    "title": document.getElementById("bookTitle" + i).value,
-                    "description": document.getElementById("bookAuthor" + i).value
-                };
-                if (book.title !== "" || book.description !== "") {
-                    $.ajax({
-                        url: 'http://bootcamp.opole.pl/books/add-book/mx5t',
-                        type: 'POST',
-                        data: book,
-                        success: function (result) {
-                            console.log("Status " + i + ": " + result.status);
-                        },
-                        error: function () {
-                            console.log("Status " + i + ": error");
-                        }
-                    })
-                }
-            }
-            alert("OK");
-            window.location.href = "index.html";
-        };
 
         function editBook(id) {
             var book = {
