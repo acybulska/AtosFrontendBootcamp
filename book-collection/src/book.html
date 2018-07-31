@@ -41,7 +41,7 @@
             <fieldset id="separateBooks">
                 <div id="anotherBook"></div>
                 <div class="row justify-content-center">
-                    <button id="addAnotherBtn" type="button" class="btn btn-link" onclick="addAnotherBook(++bulkAddCounter)">
+                    <button id="addNewRowBtn" type="button" class="btn btn-link" onclick="addNewRow(++bulkAddCounter)">
                         <i class="far fa-plus-square"></i> Add another</button>
                 </div>
                 <div class="row justify-content-center">
@@ -58,9 +58,10 @@
         <form>
             <fieldset id="fileBooks">
                 <div class="row justify-content-center">
-                    <p>Choose a text file with books entered in such manner: [{"title" : "Book 1 title", "description" : "Book
-                        1 author"}, {"title" : "Book 2 title", "description" : "Book 2 author"}, ... ,{"title" : "Book N
-                        title", "description" : "Book N author"}]
+                    <p>
+                        Choose a text file with books entered in such manner: [{"title" : "Book 1 title", "description" : "Book 1 author"}, {"title"
+                        : "Book 2 title", "description" : "Book 2 author"}, ... ,{"title" : "Book N title", "description"
+                        : "Book N author"}]
                     </p>
                 </div>
                 <div class="row justify-content-center">
@@ -81,20 +82,24 @@
             </fieldset>
         </form>
     </main>
+
     <footer class="footer bg-dark">
         <div class="container">
             <span class="text-white">by Lisa Swann</span>
         </div>
     </footer>
+
     <script>
         var id = null;
         var bulkAddCounter = 0;
         var booksFile = [];
+
         document.getElementById('addFile').addEventListener('change', readSingleFile, false);
 
         $(document).ready(function () {
             id = window.location.hash.substring(1);
-            addAnotherBook(0);
+            addNewRow(0);
+            bulkAddCounter = 1;
             if (id == "undefined") {
                 document.getElementById("fileBooks").style.visibility = "hidden";
                 document.getElementById("deleteBtn").style.display = "none";
@@ -102,7 +107,7 @@
             else {
                 document.getElementById("addFromFileBtn").style.display = "none";
                 document.getElementById("fileBooks").style.display = "none";
-                document.getElementById("addAnotherBtn").style.display = "none";
+                document.getElementById("addNewRowBtn").style.display = "none";
                 $.ajax({
                     url: 'http://bootcamp.opole.pl/books/my-books/mx5t',
                     type: 'GET',
@@ -151,37 +156,61 @@
             }
         }
 
+        function booksToArrray(books) {
+            for (var i = 0; i < bulkAddCounter.length; i++) {
+                books.push(
+                    {
+                        "title": document.getElementById("bookTitle" + i).value,
+                        "description": document.getElementById("bookAuthor" + i).value
+                    }
+                );
+            }
+            console.log("books: " + bookList);
+            return books;
+        }
+
+        function booksToJson(bookList) {
+            for (const book of bookList) {
+                console.log("New book: " + book);
+                addNextBook(book);
+            }
+        }
+
         function saveBooks() {
             if (id === "undefined") {
 
                 if (booksFile === [] && bulkAddCounter === 0) {
-                    console.log("Noting to add");
-                }
-                else if (bulkAddCounter !== 0) {
-                    for (const i of bulkAddCounter) {
-                        var book = {
-                            "title": document.getElementById("bookTitle" + i).value,
-                            "description": document.getElementById("bookAuthor" + i).value
-                        };
-                        addNextBook(book);
-                    }
+                    console.log("Nothing to add");
                 }
                 else {
-                    if (booksFile !== "" && booksFile !== []) {
+                    if (!document.getElementById("separateBooks").disabled) {
+                        var bookList = [];
+                        for (var i = 0; i < bulkAddCounter.length; i++) {
+                            bookList.push(
+                                {
+                                    "title": document.getElementById("bookTitle" + i).value,
+                                    "description": document.getElementById("bookAuthor" + i).value
+                                }
+                            );
+                        }
+                        console.log("books: " + books);
+
+                        booksToJson(bookList);
+                        console.log("Books have been added");
+                    }
+                    if (booksFile !== [] && document.getElementById("separateBooks").disabled) {
                         for (const book of booksFile) {
                             var bookJson = {
-                                "title": item.title,
-                                "description": item.description
+                                "title": book.title,
+                                "description": book.description
                             };
                             addNextBook(bookJson);
                         }
-                    }
-                    else {
-                        console.log("Empty or unknown file");
+                        console.log("Books have been added");
                     }
                 }
-                alert("OK");
-                window.location.href = "index.html";
+                // alert("OK");
+                // window.location.href = "index.html";
             }
             else {
                 editBook(id);
@@ -203,7 +232,7 @@
                 })
             }
         }
-        function addAnotherBook(id) {
+        function addNewRow(id) {
             var elm = '<div class="row justify-content-center">' +
                 '<div class="form-group"> ' +
                 '<label for="bookAuthor">Author</label>' +
