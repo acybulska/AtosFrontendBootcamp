@@ -156,26 +156,6 @@
             }
         }
 
-        function booksToArrray(books) {
-            for (var i = 0; i < bulkAddCounter.length; i++) {
-                books.push(
-                    {
-                        "title": document.getElementById("bookTitle" + i).value,
-                        "description": document.getElementById("bookAuthor" + i).value
-                    }
-                );
-            }
-            console.log("books: " + bookList);
-            return books;
-        }
-
-        function booksToJson(bookList) {
-            for (const book of bookList) {
-                console.log("New book: " + book);
-                addNextBook(book);
-            }
-        }
-
         function saveBooks() {
             if (id === "undefined") {
                 if (booksFile === [] && bulkAddCounter === 0) {
@@ -184,7 +164,7 @@
                 else {
                     if (!document.getElementById("separateBooks").disabled) {
                         var bookList = [];
-                        for (var i = 0; i < bulkAddCounter.length; i++) {
+                        for (var i = 0; i < bulkAddCounter; i++) {
                             bookList.push(
                                 {
                                     "title": document.getElementById("bookTitle" + i).value,
@@ -192,9 +172,10 @@
                                 }
                             );
                         }
-                        console.log("books: " + bookList);
-
-                        booksToJson(bookList);
+                        for (const book of bookList) {
+                            console.log("New book: " + book);
+                            addNextBook(book);
+                        }
                         console.log("Books have been added");
                     }
                     if (booksFile !== [] && document.getElementById("separateBooks").disabled) {
@@ -208,8 +189,8 @@
                         console.log("Books have been added");
                     }
                 }
-                // alert("OK");
-                // window.location.href = "index.html";
+                alert("OK");
+                window.location.href = "index.html";
             }
             else {
                 editBook(id);
