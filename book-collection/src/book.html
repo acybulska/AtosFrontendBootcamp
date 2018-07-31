@@ -178,7 +178,6 @@
 
         function saveBooks() {
             if (id === "undefined") {
-
                 if (booksFile === [] && bulkAddCounter === 0) {
                     console.log("Nothing to add");
                 }
@@ -193,7 +192,7 @@
                                 }
                             );
                         }
-                        console.log("books: " + books);
+                        console.log("books: " + bookList);
 
                         booksToJson(bookList);
                         console.log("Books have been added");
@@ -224,10 +223,10 @@
                     type: 'POST',
                     data: item,
                     success: function (result) {
-                        console.log("Status " + i + ": " + result.status);
+                        console.log("Status: " + result.status);
                     },
                     error: function () {
-                        console.log("Status " + i + ": error");
+                        console.log("Status: error");
                     }
                 })
             }
