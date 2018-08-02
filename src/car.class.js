@@ -8,7 +8,8 @@ export default class Car {
         this.color = color;
         this.id = this.brand + this.model + this.year + Math.random(2);
         this.deleteButtonId = this.brand + this.model + this.year + Math.random(2);
-        // this.settingsButton
+        this.settingsButtonId = this.brand + this.model + this.year + Math.random(2);
+        this.showId = this.brand + this.model + this.year + Math.random(2);
     }
     
     getInfo() {
@@ -29,17 +30,24 @@ export default class Car {
                             <li class="list-group-item">Condition: ${this.condition}</li>
                         </ul>
                     </div>
+                    <button class="btn" style="margin-top: 20px;" id="${this.settingsButtonId}">Settings</button>
+                    <button class="btn btn-danger" style="margin-top: 20px;" id="${this.deleteButtonId}">Delete Car</button>
+                    <div id="${this.showId}" style="display: none;">
+                        <div style="margin-top:20px">
+                            <input placeholder="Change Price">
+                        </div>
+                    </div>
                 </div>`
     }
 
-    // toggleSettings() {
-    //     let sellButton = document.getElementById(this.sellCarButton).disabled;
-    //     sellButton.disabled = sellButton.disabled === true ? false : true;
-    //     let settings = document.getElementById(this.showId);
-    //     let item = document.getElementById(this.id);
-    //     settings.style.display=settings.style.display === 'none' ? '' : 'none';
-    //     item.classList.contains("itemAll") ? item.classList.remove("itemAll"):item.classList.add("itemAll");
-    // } 
+    toggleSettings() {
+        // let sellButton = document.getElementById(this.sellCarButton).disabled;
+        // sellButton.disabled = sellButton.disabled === true ? false : true;
+        let settings = document.getElementById(this.showId);
+        let item = document.getElementById(this.id);
+        settings.style.display=settings.style.display === 'none' ? '' : 'none';
+        item.classList.contains("itemAll") ? item.classList.remove("itemAll"):item.classList.add("itemAll");
+    } 
 
     // changeYear() {
     //     let newYear = document.getElementById(this.changeYearId).value;
