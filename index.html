@@ -11,6 +11,7 @@
     .input {
         display: inline-block;
     }
+
     .itemAll {
         height: 481px !important;
     }
@@ -20,16 +21,27 @@
     <div style="width: 1200px; margin: auto;">
         <div style="text-align: center">
             <div class="jumbotron" style="margin: 46px; margin-top: 0px">
-                <h1 class="display-4">Awesome Cars Sales</h1>
-                <p class="lead">good cars</p>
+                <h1 class="display-4">Awesome Vehicles</h1>
+                <p class="lead">Reasonably priced. In great condition.</p>
+                <p class="lead" id="totalPrice"></p>
             </div>
-            <input id="brand" class="form-control input" style="width: 180px;" placeholder="brand">
-            <input id="model" class="form-control input" style="width: 180px;" placeholder="model">
-            <input id="price" class="form-control input" style="width: 180px;" placeholder="price">
-            <input id="year" class="form-control input" style="width: 180px;" placeholder="year">
-            <input id="condition" class="form-control input" style="width: 180px;" placeholder="condition">
+            <div style="display: inline-block; width: 130px;">
+                <select class="custom-select" id="vehicleType">
+                    <option selected>Vehicle Type</option>
+                    <option value="1">Car</option>
+                    <option value="2">Truck</option>
+                    <option value="3">Motorcycle</option>
+                </select>
+            </div>
+            <input id="brand" class="form-control input" style="width: 120px;" placeholder="brand">
+            <input id="model" class="form-control input" style="width: 120px;" placeholder="model">
+            <input id="price" class="form-control input" style="width: 100px;" placeholder="price">
+            <input id="year" class="form-control input" style="width: 80px;" placeholder="year">
+            <input id="condition" class="form-control input" style="width: 120px;" placeholder="condition">
+            <input id="engineCap" class="form-control input" style="width: 150px;" placeholder="engine cap [cm3]">
+            <input id="capacity" class="form-control input" style="width: 120px;" placeholder="capacity [t]">
             <input id="color" class="form-control input" style="width: 50px;" type="color">
-            <button class="btn btn-success" id="submit">Add car</button>
+            <button class="btn btn-success" id="submit">Add vehicle</button>
         </div>
         <div style="padding-top: 20px; width: 1120px; margin: auto;" id="main"></div>
     </div>
