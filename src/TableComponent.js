@@ -28,7 +28,7 @@ export default class TableItem {
     }
 };
 
-fetch('https://api.punkapi.com/v2/beers?page=1&per_page=3').then(res => res.json()).then(
+fetch('https://api.punkapi.com/v2/beers?page=1&per_page='+getAmount()).then(res => res.json()).then(
     res => {
         const tableItem = new TableItem();
         res.map(item => {
