@@ -1,16 +1,17 @@
 import uuid from 'uuid-v4';
+import { getAmount } from './index';
 
 export class SellItem {
     constructor(name, img, brewed, tagline, attenuation, percent) {
-           this.name = name;
-           this.img = img;
-           this.brewed = brewed;
-           this.tagline = tagline;
-           this.attenuation = attenuation;
-           this.percent = percent;
-           this.id = uuid();
-         }
-       };
+        this.name = name;
+        this.img = img;
+        this.brewed = brewed;
+        this.tagline = tagline;
+        this.attenuation = attenuation;
+        this.percent = percent;
+        this.id = uuid();
+    }
+};
 
 export default class TableItem {
     createTableItem(item, table) {
@@ -44,29 +45,29 @@ document.getElementById('form-sell').addEventListener("submit", (e) => {
     const tableItem = new TableItem();
 
     if (form[0].value == "" || form[1].value == "" || form[2].value == "" || form[3].value == "" || form[4].value == "") {
-      let error = document.getElementById("error");
+        let error = document.getElementById("error");
         if (form[0].value == "") {
-          error.innerText = "Error - fill beer name field !";
+            error.innerText = "Error - fill beer name field !";
         } else if (form[1].value == "") {
-          error.innerText = "Error - fill image url field !";
+            error.innerText = "Error - fill image url field !";
         } else if (form[2].value == "") {
-          error.innerText = "Error - fill brewed in field !";
+            error.innerText = "Error - fill brewed in field !";
         } else if (form[3].value == "") {
-          error.innerText = "Error - fill tagline field !";
+            error.innerText = "Error - fill tagline field !";
         } else if (form[4].value == "") {
-          error.innerText = "Error - fill attenuation field !";
+            error.innerText = "Error - fill attenuation field !";
         } else if (form[5].value == "") {
-          error.innerText = "Error - fill percent field !";
-        } 
+            error.innerText = "Error - fill percent field !";
+        }
         e.preventDefault();
     } else {
-      let error = document.getElementById("error");
-      error.innerText = "";
-      const item = new SellItem(form[0].value, form[1].value, form[2].value, form[3].value, form[4].value, form[5].value);
-      const table = document.getElementById("table2");
-      tableItem.createTableItem(item, table);
-      clearInputs(form);
-      e.preventDefault();
+        let error = document.getElementById("error");
+        error.innerText = "";
+        const item = new SellItem(form[0].value, form[1].value, form[2].value, form[3].value, form[4].value, form[5].value);
+        const table = document.getElementById("table2");
+        tableItem.createTableItem(item, table);
+        clearInputs(form);
+        e.preventDefault();
     }
 });
 
@@ -90,3 +91,4 @@ const slider = () => {
 }
 
 slider();
+console.log("Amount: " + getAmount());
