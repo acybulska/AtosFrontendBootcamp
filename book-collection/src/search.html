@@ -76,7 +76,10 @@
 
     <script>
         var resultData = [];
-        $(document).ready(function () {
+
+        $(document).ready($.when(getRatings()).then(getBookTable));
+        
+        function getBookTable() {
             var elementValue = window.location.hash.substring(1);
             elementValue = elementValue.toLowerCase().trim();
             elementValue = elementValue.replace("%20", " ");
@@ -113,7 +116,7 @@
                 }
             })
             console.log(resultData);
-        });
+        }
 
         function searchNewElement() {
             var elementValue = document.getElementById("searchInput").value;
