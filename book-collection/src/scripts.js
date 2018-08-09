@@ -7,6 +7,8 @@ var titleRow = '<tr><th>' +
     '</div></div>' +
     '</th><th>Author</th><th>Title</th><th></th></tr>';
 
+var ratingData = [];
+
 function deleteListedBook(id) {
     var del = confirm("Are you sure you want to delete this book?");
     if (del == true) {
@@ -110,7 +112,7 @@ function addRow(books, i, table) {
     cell0.innerHTML = "<input type='checkbox' id='bulkCheckbox" + books[i].id + "' style='margin-left: 30px'>";
     cell1.innerHTML = books[i].description;
     cell2.innerHTML = books[i].title;
-    cell3.innerHTML = "<button type='button' class='btn btn-link' onclick='getBook("
+    cell3.innerHTML = getRating(books[i].id) + "<button type='button' class='btn btn-link' onclick='getBook("
         + books[i].id + ")'><i class='far fa-edit'></i></button><button "
         + "type='button' class='btn btn-link' onclick='deleteListedBook("
         + books[i].id + ")'><i class='far fa-trash-alt'></i></button>";
@@ -125,9 +127,85 @@ function addFilteredRow(books, i, k, table) {
     cell0.innerHTML = "<input type='checkbox' id='bulkCheckbox" + books[i].id + "' style='margin-left: 30px'>";
     cell1.innerHTML = books[i].description;
     cell2.innerHTML = books[i].title;
-    cell3.innerHTML = "<button type='button' class='btn btn-link' onclick='getBook("
+    cell3.innerHTML = getRating(books[i].id) + "<button type='button' class='btn btn-link' onclick='getBook("
         + books[i].id + ")'><i class='far fa-edit'></i></button><button"
         + "type='button' class='btn btn-link' onclick='deleteListedBook("
         + books[i].id + ")'><i class='far fa-trash-alt'></i></button>";
     resultData.push(books[i]);
+}
+
+
+function getRatings() {
+    $.ajax({
+        url: 'http://bootcamp.opole.pl/books/my-rates/mx5t',
+        type: 'GET',
+        success: function (result) {
+            console.log("GET Status: " + result.rates[0].book);
+            ratingData = result.rates;
+        },
+        error: function () {
+            // window.location.href = 'notfound.html';
+            console.log("Error with ratings");
+        }
+    });
+}
+
+function getRating(bookId) {
+    var rating = 0;
+    for (var i = 0; i < ratingData.length; i++) {
+        if (ratingData[i].book === bookId) {
+            rating = parseFloat(ratingData[i].sum / ratingData[i].rates);
+        }
+    }
+    console.log("rating="+rating);
+    switch (true) {
+        case rating >= 1 && rating<2:
+            return "<div>" +
+                "<span class='icon star'></span>" +
+                "<span class='icon star-empty'></span>" +
+                "<span class='icon star-empty'></span>" +
+                "<span class='icon star-empty'></span>" +
+                "<span class='icon star-empty'></span>" +
+                "</div>";
+        case rating >= 2 && rating < 3:
+            return "<div>" +
+                "<span class='icon star'></span>" +
+                "<span class='icon star'></span>" +
+                "<span class='icon star-empty'></span>" +
+                "<span class='icon star-empty'></span>" +
+                "<span class='icon star-empty'></span>" +
+                "</div>";
+        case rating >= 3 && rating < 4:
+            return "<div>" +
+                "<span class='icon star'></span>" +
+                "<span class='icon star'></span>" +
+                "<span class='icon star'></span>" +
+                "<span class='icon star-empty'></span>" +
+                "<span class='icon star-empty'></span>" +
+                "</div>";
+        case rating >= 4 && rating < 5:
+            return "<div>" +
+                "<span class='icon star'></span>" +
+                "<span class='icon star'></span>" +
+                "<span class='icon star'></span>" +
+                "<span class='icon star'></span>" +
+                "<span class='icon star-empty'></span>" +
+                "</div>";
+        case rating == 5:
+            return "<div>" +
+                "<span class='icon star'></span>" +
+                "<span class='icon star'></span>" +
+                "<span class='icon star'></span>" +
+                "<span class='icon star'></span>" +
+                "<span class='icon star'></span>" +
+                "</div>";
+        default:
+            return "<div>" +
+                "<span class='icon star-empty'></span>" +
+                "<span class='icon star-empty'></span>" +
+                "<span class='icon star-empty'></span>" +
+                "<span class='icon star-empty'></span>" +
+                "<span class='icon star-empty'></span>" +
+                "</div>";
+    }
 }

@@ -45,6 +45,34 @@
                         <i class="far fa-plus-square"></i> Add another</button>
                 </div>
                 <div class="row justify-content-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Add rating</h5>
+                            <div class="form-check form-check-inline rating-form">
+                                <input class="form-check-input rating" type="radio" name="inlineRadioOptions" id="bookRating1" value="1" onclick="setRating(value)">
+                                <label class="form-check-label icon star-empty" for="bookRating1" id="bookRating1Lbl">
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline rating-form">
+                                <input class="form-check-input rating" type="radio" name="inlineRadioOptions" id="bookRating2" value="2" onclick="setRating(value)">
+                                <label class="form-check-label icon star-empty" for="bookRating2" id="bookRating2Lbl"></label>
+                            </div>
+                            <div class="form-check form-check-inline rating-form">
+                                <input class="form-check-input rating" type="radio" name="inlineRadioOptions" id="bookRating3" value="3" onclick="setRating(value)">
+                                <label class="form-check-label icon star-empty" for="bookRating3" id="bookRating3Lbl"></label>
+                            </div>
+                            <div class="form-check form-check-inline rating-form">
+                                <input class="form-check-input rating" type="radio" name="inlineRadioOptions" id="bookRating4" value="4" onclick="setRating(value)">
+                                <label class="form-check-label icon star-empty" for="bookRating4" id="bookRating4Lbl"></label>
+                            </div>
+                            <div class="form-check form-check-inline rating-form">
+                                <input class="form-check-input rating" type="radio" name="inlineRadioOptions" id="bookRating5" value="5" onclick="setRating(value)">
+                                <label class="form-check-label icon star-empty" for="bookRating5" id="bookRating5Lbl"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
                     <button type="button" class="btn btn-dark" onclick="saveBooks()">Save</button>
                     <button type="button" class="btn btn-dark" id="deleteBtn" onclick="deleteBook()">Delete</button>
                     <button type="button" class="btn btn-dark" onclick="goBack()">Back</button>
@@ -103,6 +131,7 @@
             if (id == "undefined") {
                 document.getElementById("fileBooks").style.visibility = "hidden";
                 document.getElementById("deleteBtn").style.display = "none";
+                document.getElementById("rateBook").style.display = "none";
             }
             else {
                 document.getElementById("addFromFileBtn").style.display = "none";
@@ -126,6 +155,18 @@
                 })
             }
         });
+
+        function setRating(rate) {
+            for (var i = 1; i <= 5; i++) {
+                if (i <= rate) {
+                    document.getElementById("bookRating" + i + "Lbl").style.fontWeight = 900;
+                }
+                else {
+                    document.getElementById("bookRating" + i + "Lbl").style.fontWeight = "";
+                }
+            }
+            console.log(rate);
+        }
 
         function addFromFile() {
             document.getElementById("separateBooks").disabled = true;
