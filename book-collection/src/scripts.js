@@ -140,11 +140,9 @@ function getRatings() {
         url: 'http://bootcamp.opole.pl/books/my-rates/mx5t',
         type: 'GET',
         success: function (result) {
-            console.log("GET Status: " + result.rates[0].book);
             ratingData = result.rates;
         },
         error: function () {
-            // window.location.href = 'notfound.html';
             console.log("Error with ratings");
         }
     });
@@ -157,7 +155,6 @@ function getRating(bookId) {
             rating = parseFloat(ratingData[i].sum / ratingData[i].rates);
         }
     }
-    console.log("rating="+rating);
     switch (true) {
         case rating >= 1 && rating<2:
             return "<div>" +
