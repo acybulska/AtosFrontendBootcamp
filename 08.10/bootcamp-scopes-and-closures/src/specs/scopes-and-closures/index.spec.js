@@ -4,9 +4,11 @@ describe('global scope - scopes and closures', () => {
         // update the multiplyByTwo() method code to multiply the value of MyNumber by 2
         // make sure the MyMathLibrary.multiplyByTwo() method has been called
 
+        var myNumber = 10;
+
         var MyMathLibrary = {
             multiplyByTwo: function() {
-                /* ... */
+                return myNumber*2;
             }
         }
 
