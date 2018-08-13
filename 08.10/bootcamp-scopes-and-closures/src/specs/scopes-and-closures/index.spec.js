@@ -1,14 +1,14 @@
 describe('global scope - scopes and closures', () => {
-    it('should belong to the global scope', function(){
+    it('should belong to the global scope', function () {
         // declare a variable MyNumber of type number, that should be available in the global scope (outside the MyMathLibrary object)
         // update the multiplyByTwo() method code to multiply the value of MyNumber by 2
         // make sure the MyMathLibrary.multiplyByTwo() method has been called
 
-        var myNumber = 10;
+        var MyNumber = 5;
 
         var MyMathLibrary = {
-            multiplyByTwo: function() {
-                return myNumber*2;
+            multiplyByTwo: function () {
+                return MyNumber = 2 * MyNumber;
             }
         }
 
@@ -16,42 +16,45 @@ describe('global scope - scopes and closures', () => {
 
         expect(MyNumber).toEqual(5);
 
-        /* ... */
+        MyMathLibrary.multiplyByTwo();
 
         expect(MyMathLibrary.multiplyByTwo).toHaveBeenCalled();
         expect(MyNumber).toEqual(10);
+
     })
 })
 
 
 describe('functional scope - scopes and closures', () => {
-    it('should belong to the function scope', function(){
+    it('should belong to the function scope', function () {
         // declare a variable MyNumber of type number (with an initial value of 9), that should be available in the global scope (outside the MyMathLibrary object)
         // update the doMath() method code to make the MyNumber value equal 10 / hint: you just need to add one line of code
         // make sure the MyMathLibrary.doMath() method has been called (with a proper parameter value)
         // make sure the addSix() and reduceFive() functions are NOT available in the global scope
+        var MyNumber = 9;
 
         var MyMathLibrary = {
-            doMath: function(arg) {
+            doMath: function (arg) {
                 MyNumber = addSix(arg);
+                MyNumber = reduceFive(MyNumber);
+
+
+                function addSix(arg) {
+                    return arg + 6;
+                }
+
+                function reduceFive(arg) {
+                    return arg - 5;
+                }
             }
         }
-
-        function addSix(arg) {
-            return arg + 6;
-        }
-
-        function reduceFive(arg) {
-            return arg - 5;
-        }
-
 
         spyOn(MyMathLibrary, "doMath").and.callThrough();
 
         // testing initial value
         expect(MyNumber).toEqual(9);
 
-        /* ... */
+        MyMathLibrary.doMath(MyNumber);
 
         expect(MyMathLibrary.doMath).toHaveBeenCalled();
 
@@ -66,26 +69,27 @@ describe('functional scope - scopes and closures', () => {
         // DO NOT modify the MyMathLibrary.doMath() method code
         // make sure the MyMathLibrary.doMath() method has NOT been called within the global scope
         // call the doSomeMoreMath() function but make sure it is not poluting the global scope (use IIFE)
+        var MyNumber = 10;
 
         var MyMathLibrary = {
             doMath: function(arg) {
                 MyNumber = addSix(arg);
             }
         }
-
+ 
         function addSix(arg) {
             return arg + 6;
         }
 
-        function doSomeMoreMath(){
-            MyMathLibrary.doMath(MyNumber)
-        }
+        (function() {
+            MyMathLibrary.doMath(MyNumber);
+        }())
 
         spyOn(MyMathLibrary, "doMath").and.callThrough();
 
-        doSomeMoreMath();
+        //doSomeMoreMath();
 
-        expect(MyMathLibrary.doMath).not.toHaveBeenCalled();
+        expect(MyMathLibrary.doMath).not.toHaveBeenCalled(); 
 
         // testing result value
         expect(MyNumber).toEqual(16);
