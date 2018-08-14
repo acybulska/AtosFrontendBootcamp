@@ -1,12 +1,14 @@
 describe('creating objects based on other objects', () => {
-    it('using Object.create()', function(){
+    it('using Object.create()', function () {
         // create a new object "personJohn" based on "personZakk" using the Object.create() method
         // update the "personJohn" properties to pass the tests
         // add a method sayName() to "personJohn" instance which should output his name
 
-        var personZakk = { name: "Zakk", surname : "Wylde" }
+        var personZakk = { name: "Zakk", surname: "Wylde" }
 
-        /* ... */
+        var personJohn = Object.create(personZakk);
+        personJohn.name = "John";
+        personJohn.sayName = function () { return this.name; };
 
         expect(personZakk.isPrototypeOf(personJohn)).toEqual(true);
         expect(personJohn.hasOwnProperty("sayName")).toEqual(true);
@@ -14,14 +16,20 @@ describe('creating objects based on other objects', () => {
         expect(personJohn.sayName()).toEqual("John");
     })
 
-    it('extending prototypes', function(){
+    it('extending prototypes', function () {
         // create a new object "personZakk" and "personJohn" based on "person" using the Object.create() method
         // update the "personJohn" and "personZakk" properties to pass the tests
         // add a method sayName() to the "person" object prototype (hint: refer to person.__proto__ NOT person.prototype !!!)
 
         var person = { name: "Freddie", surname: "Mercury" }
 
-        /* ... */
+        var personZakk = Object.create(person);
+        var personJohn = Object.create(person);
+
+        personZakk.name = "Zakk";
+        personJohn.name = "John";
+
+        person.__proto__.sayName = function () { return this.name; };
 
         expect(person.isPrototypeOf(personZakk)).toEqual(true);
         expect(person.isPrototypeOf(personJohn)).toEqual(true);
@@ -38,28 +46,33 @@ describe('creating objects based on other objects', () => {
 })
 
 describe('creating objects with constructors', () => {
-    it('simple constructor method', function(){
+    it('simple constructor method', function () {
         // create a "bmw" object using the new operator and the Car constructor
 
         function Car(make) {
             this.make = make;
-            this.getMake = function() {
+            this.getMake = function () {
                 return this.make;
             }
         }
+
+        var bmw = new Car("BMW");
 
         expect(Car.isPrototypeOf(bmw)).toEqual(false);
         expect(bmw.hasOwnProperty("getMake")).toEqual(true);
         expect(bmw.getMake()).toEqual("BMW");
     })
 
-    it('simple constructor method with prototype', function(){
+    it('simple constructor method with prototype', function () {
         // create a "bmw" object using the new operator and the Car constructor
         // extend the Car prototype (use Car.prototype) to add the getMake method (same logic as in previous test suite)
 
         function Car(make) {
             this.make = make;
         }
+
+        var bmw = new Car("BMW");
+        Car.prototype.getMake = function () { return this.make; };
 
         expect(Car.isPrototypeOf(bmw)).toEqual(false);
         expect(bmw.hasOwnProperty("getMake")).toEqual(false);
