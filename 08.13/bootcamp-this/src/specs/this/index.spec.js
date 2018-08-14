@@ -1,7 +1,10 @@
 // describe('casting this to a temporary variable', () => {
 //     it('should call the most outer context object property', function () {
 //         // create the outerSayName function based on any of the below inner functions to return the "name" variable from the "outerContext" function context
-//         function outerSayName() {return name;}
+//         function outerSayName() {
+//             return this.sayName;
+//         }
+
 //         function outerContext() {
 //             function sayName() {
 //                 return this.name;
@@ -92,88 +95,88 @@ describe('using the call(), apply() and bind() methods to change the context', (
         expect(tellMeAboutYourself.call(this, person1.name)).toEqual("John would be 72 years old");
         expect(person1.tellMeAboutYourself.call(this, this.name)).toEqual("Freddie would be 72 years old");
         expect(person1.tellMeAboutYourself.call(person2, person2.name)).toEqual("Zakk is 51 years old");
-        expect(person2.tellMeAboutYourself.call(this,person2.name)).toEqual("Zakk would be 72 years old");
+        expect(person2.tellMeAboutYourself.call(this, person2.name)).toEqual("Zakk would be 72 years old");
     })
 
-        it('should use the apply() method to change the context', function () {
-            function tellMeAboutYourself(name) {
-                if (this.alive) {
-                    return name + " is " + this.age + " years old";
-                }
-                else {
-                    return name + " would be " + this.age + " years old";
-                }
+    it('should use the apply() method to change the context', function () {
+        function tellMeAboutYourself(name) {
+            if (this.alive) {
+                return name + " is " + this.age + " years old";
             }
-
-            var person1 = {
-                name: "John",
-                age: 78,
-                alive: false
+            else {
+                return name + " would be " + this.age + " years old";
             }
+        }
 
-            var person2 = {
-                name: "Zakk",
-                age: 51,
-                alive: true
+        var person1 = {
+            name: "John",
+            age: 78,
+            alive: false
+        }
+
+        var person2 = {
+            name: "Zakk",
+            age: 51,
+            alive: true
+        }
+
+        this.name = "Freddie";
+        this.age = 72;
+        this.alive = false;
+
+        // use object identifiers and object methods only
+        expect(tellMeAboutYourself.apply(person2, [person1.name])).toEqual("John is 51 years old");
+        expect(tellMeAboutYourself.apply(this, [person2.name])).toEqual("Zakk would be 72 years old");
+        expect(tellMeAboutYourself.apply(this, [this.name])).toEqual("Freddie would be 72 years old");
+        expect(tellMeAboutYourself.apply(person1, [person2.name])).toEqual("Zakk would be 78 years old");
+        expect(tellMeAboutYourself.apply(this, [person1.name])).toEqual("John would be 72 years old");
+        // expect(person1.tellMeAboutYourself.call(person2, name)).toEqual("John is 51 years old");
+        // expect(person1.tellMeAboutYourself.call(person2, person2.name)).toEqual("Zakk is 51 years old");
+        //expect(person2.tellMeAboutYourself.call(person1,person1.name)).toEqual("John would be 78 years old");
+    })
+
+    it('should use the bind() method to change the context', function () {
+        function tellMeAboutYourself(name) {
+            if (this.alive) {
+                return name + " is " + this.age + " years old";
             }
-
-            this.name = "Freddie";
-            this.age = 72;
-            this.alive = false;
-
-            // use object identifiers and object methods only
-            expect(tellMeAboutYourself.apply(person2, [person1.name])).toEqual("John is 51 years old");
-            expect(tellMeAboutYourself.apply(this, [person2.name])).toEqual("Zakk would be 72 years old");
-            expect(tellMeAboutYourself.apply(this, [this.name])).toEqual("Freddie would be 72 years old");
-            expect(tellMeAboutYourself.apply(person1,[person2.name])).toEqual("Zakk would be 78 years old");
-            expect(tellMeAboutYourself.apply(this,[person1.name])).toEqual("John would be 72 years old");
-            //expect(person1.tellMeAboutYourself.call(this.person2,person1.name)).toEqual("John is 51 years old");
-            //expect(person1.tellMeAboutYourself.call(person2,person2.name)).toEqual("Zakk is 51 years old");
-            //expect(person2.tellMeAboutYourself.call(person1,person1.name)).toEqual("John would be 78 years old");
-        })
-
-        it('should use the bind() method to change the context', function () {
-            function tellMeAboutYourself(name) {
-                if (this.alive) {
-                    return name + " is " + this.age + " years old";
-                }
-                else {
-                    return name + " would be " + this.age + " years old";
-                }
+            else {
+                return name + " would be " + this.age + " years old";
             }
+        }
 
-            var person1 = {
-                name: "John",
-                age: 78,
-                alive: false
-            }
+        var person1 = {
+            name: "John",
+            age: 78,
+            alive: false
+        }
 
-            var person2 = {
-                name: "Zakk",
-                age: 51,
-                alive: true
-            }
+        var person2 = {
+            name: "Zakk",
+            age: 51,
+            alive: true
+        }
 
-            this.name = "Freddie";
-            this.age = 72;
-            this.alive = false;
+        this.name = "Freddie";
+        this.age = 72;
+        this.alive = false;
 
-            // use object identifiers and object methods only
+        // use object identifiers and object methods only
 
-            var myCallers = {
-                callerFunction1: tellMeAboutYourself.bind(person1),
-                callerFunction2: tellMeAboutYourself.bind(this),
-                callerFunction3: tellMeAboutYourself.bind(person2),
-                callerFunction4: tellMeAboutYourself.bind(this, person2.name),
-                callerFunction5: tellMeAboutYourself.bind(person1, this.name),
-                callerFunction6: tellMeAboutYourself.bind(person2, person2.name)
-            }
+        var myCallers = {
+            callerFunction1: tellMeAboutYourself.bind(person1),
+            callerFunction2: tellMeAboutYourself.bind(this),
+            callerFunction3: tellMeAboutYourself.bind(person2),
+            callerFunction4: tellMeAboutYourself.bind(this, person2.name),
+            callerFunction5: tellMeAboutYourself.bind(person1, this.name),
+            callerFunction6: tellMeAboutYourself.bind(person2, person2.name)
+        }
 
-            // expect(/* YOUR ANSWER HERE */).toEqual("Zakk would be 78 years old");
-            // expect(/* YOUR ANSWER HERE */).toEqual("John would be 72 years old");
-            // expect(/* YOUR ANSWER HERE */).toEqual("Freddie is 51 years old");
-            // expect(/* YOUR ANSWER HERE */).toEqual("Zakk would be 72 years old");
-            // expect(/* YOUR ANSWER HERE */).toEqual("Freddie would be 78 years old");
-            expect(myCallers.callerFunction6).toEqual("Zakk is 51 years old");
-        })
+        expect(myCallers.callerFunction1.call(person1, person2.name)).toEqual("Zakk would be 78 years old");
+        expect(myCallers.callerFunction2.call(this, person1.name)).toEqual("John would be 72 years old");
+        expect(myCallers.callerFunction3.call(person2, this.name)).toEqual("Freddie is 51 years old");
+        expect(myCallers.callerFunction4.call(this, person2.name)).toEqual("Zakk would be 72 years old");
+        expect(myCallers.callerFunction5.call(person1, this.name)).toEqual("Freddie would be 78 years old");
+        expect(myCallers.callerFunction6.call(person2, person2.name)).toEqual("Zakk is 51 years old");
+    })
 })
