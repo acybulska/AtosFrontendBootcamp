@@ -1,4 +1,4 @@
-# vue-app
+# library-app
 
 > A Vue.js project
 
