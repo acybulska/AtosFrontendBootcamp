@@ -3,11 +3,12 @@
     <h1>My Book Library</h1>
     <p>Add new book:</p>
     <div class="addBookDiv">
-      <input type="text" v-bind:value="input1" v-on:input="inputChanged">
-      <input type="text" v-model="input2">
-      <button @click="addBook()">Add</button>
+      <input type="text" v-model="newBook.description" placeholder="Author">
+      <input type="text" v-model="newBook.title" placeholder="Title">
+      <button @click="addBook">Add</button>
     </div>
     <body>
+      <button @click="fetchData">Get data</button>
       <Library :books="books"></Library>
     </body>
   </div>
@@ -24,24 +25,40 @@ export default {
   },
   data() {
     return {
-      input1: "Harry",
-      input2: "Potter",
-      books: [
-        { author: "J.K.Rowling", title: "Harry Potter i Kamień Filozoficzny" },
-        { author: "J.K.Rowling", title: "Harry Potter i Komnata Tajemnic" },
-        { author: "J.K.Rowling", title: "Harry Potter i więzień Azkabanu" },
-        { author: "J.K.Rowling", title: "Harry Potter i Czara Ognia" },
-        { author: "J.K.Rowling", title: "Harry Potter i Zakon Feniksa" }
-      ]
+      newBook: {
+        title: "",
+        description: ""
+      },
+      books: []
     };
   },
   methods: {
     addBook: function() {
-      console.log(this.input1);
-      console.log(this.input2);
+      console.log(this.newBook);
+      this.$http
+        .post("http://bootcamp.opole.pl/books/add-book/mx5t", this.newBook)
+        .then(
+          response => {
+            console.log(response);
+          },
+          error => {
+            console.log("ERROR");
+          }
+        );
     },
-    inputChanged: function(event) {
-      this.input1 = event.target.value;
+    fetchData() {
+      this.$http
+        .get("http://bootcamp.opole.pl/books/my-books/mx5t")
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          console.log(data.books);
+
+          //for (let i=0; i<data.books.length; data.books) {
+            // this.books.push(data.books[i]);
+         //}
+        });
     }
   }
 };

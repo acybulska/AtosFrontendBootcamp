@@ -3,7 +3,7 @@
     <div id="bookList">
         <ul>
             <li v-for="(book, index) in books" :key="index">
-                <LibraryListItem :author="book.author" :title="book.title"></LibraryListItem>
+                <LibraryListItem :description="book.description" :title="book.title"></LibraryListItem>
             </li>
         </ul>
     </div>

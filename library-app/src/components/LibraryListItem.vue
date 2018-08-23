@@ -2,7 +2,7 @@
     <div>
         <input type="text" v-model="bookAuthor">
         <input type="text" v-model="bookTitle">
-        <button>Del</button>
+        <button>Delete</button>
     </div>
 </template>
 
@@ -10,12 +10,12 @@
 export default {
   data() {
     return {
-      bookAuthor: this.author,
+      bookAuthor: this.description,
       bookTitle: this.title
     };
   },
   props: {
-    author: {
+    description: {
       type: String,
       required: true
     },
