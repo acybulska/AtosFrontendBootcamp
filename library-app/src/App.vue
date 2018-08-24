@@ -8,7 +8,6 @@
       <button @click="addBook">Add</button>
     </div>
     <body>
-      <button @click="fetchData">Get data</button>
       <Library :books="books"></Library>
     </body>
   </div>
@@ -32,32 +31,39 @@ export default {
       books: []
     };
   },
+  mounted() {
+    this.fetchData();
+  },
+  updated() {
+    this.fetchData();
+  },
   methods: {
     addBook: function() {
       console.log(this.newBook);
       this.$http
-        .post("http://bootcamp.opole.pl/books/add-book/mx5t", this.newBook)
+        .post("http://bootcamp.opole.pl/books/add-book/mx5t", this.newBook, {
+          emulateJSON: true
+        })
         .then(
           response => {
-            console.log(response);
+            this.fetchData();
+            this.newBook.description="";
+            this.newBook.title="";
           },
           error => {
             console.log("ERROR");
           }
         );
     },
-    fetchData() {
+    fetchData: function() {
       this.$http
         .get("http://bootcamp.opole.pl/books/my-books/mx5t")
         .then(response => {
           return response.json();
         })
         .then(data => {
-          console.log(data.books);
-
-          //for (let i=0; i<data.books.length; data.books) {
-            // this.books.push(data.books[i]);
-         //}
+          // console.log(data.books);
+          this.books = data.books;
         });
     }
   }

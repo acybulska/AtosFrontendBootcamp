@@ -1,8 +1,8 @@
 <template>
     <div>
-        <input type="text" v-model="bookAuthor">
-        <input type="text" v-model="bookTitle">
-        <button>Delete</button>
+        <input type="text" v-model="bookAuthor" @change="editBook">
+        <input type="text" v-model="bookTitle" @change="editBook">
+        <button @click="deleteBook">Delete</button>
     </div>
 </template>
 
@@ -11,7 +11,8 @@ export default {
   data() {
     return {
       bookAuthor: this.description,
-      bookTitle: this.title
+      bookTitle: this.title,
+      bookId: this.id
     };
   },
   props: {
@@ -22,6 +23,47 @@ export default {
     title: {
       type: String,
       required: true
+    },
+    id: {
+      type: String,
+      required: true
+    }
+  },
+  methods: {
+    deleteBook: function() {
+      this.$http
+        .delete(
+          "http://bootcamp.opole.pl/books/delete-book/" + this.bookId + "/mx5t"
+        )
+        .then(
+          response => {
+            console.log(response);
+          },
+          error => {
+            console.log("ERROR");
+          }
+        );
+    },
+    editBook: function() {
+      this.$http
+        .post(
+          "http://bootcamp.opole.pl/books/edit-book/" + this.bookId + "/mx5t",
+          {
+            title: this.bookTitle,
+            description: this.bookAuthor
+          },
+          {
+            emulateJSON: true
+          }
+        )
+        .then(
+          response => {
+            console.log(response);
+          },
+          error => {
+            console.log("ERROR");
+          }
+        );
     }
   }
 };
