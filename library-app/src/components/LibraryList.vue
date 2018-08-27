@@ -5,12 +5,13 @@
         <tr>
           <th scope="col">Author</th>
           <th scope="col">Title</th>
-          <th scope="col"></th>
+          <!-- <th scope="col"></th> -->
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody v-for="(book, index) in books" :key="index">
-        <LibraryListItem :description="book.description" :title="book.title" :id="book.id" :rating="ratings"></LibraryListItem>
+        <LibraryListItem :description="book.description" :title="book.title" :id="book.id" ></LibraryListItem>
+        <!-- :rating="book.rating" -->
       </tbody>
     </table>
     <p>Books count {{ books.length }}</p>
@@ -29,9 +30,6 @@ export default {
   },
   props: {
     books: {
-      type: Array
-    },
-    ratings: {
       type: Array
     }
   }

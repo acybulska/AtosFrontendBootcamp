@@ -12,9 +12,7 @@
       <input type="text" class="form-control" id="titleInput" v-model="bookTitle" @change="editBook">
     </div>
   </td>
-  <td>
-    
-  </td>
+  <!-- <td>{{ bookRating }}</td> -->
   <td>
     <button type="submit" class="btn btn-danger mb-2" @click="deleteBook"><i class='far fa-trash-alt'></i></button>
   </td>
@@ -27,8 +25,8 @@ export default {
     return {
       bookAuthor: this.description,
       bookTitle: this.title,
-      bookId: this.id,
-      bookRating: this.rating
+      bookId: this.id
+      //bookRating: this.rating
     };
   },
   props: {
@@ -44,6 +42,10 @@ export default {
       type: String,
       required: true
     }
+    // rating: {
+    //   type: Number,
+    //   required: true
+    // }
   },
   methods: {
     deleteBook: function() {

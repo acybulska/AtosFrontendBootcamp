@@ -39,8 +39,7 @@ export default {
         title: "",
         description: ""
       },
-      books: [],
-      ratings: []
+      books: []
     };
   },
   mounted() {
@@ -81,14 +80,35 @@ export default {
         });
     },
     fetchRatings: function() {
-      this.$http.get("http://bootcamp.opole.pl/books/my-rates/mx5t").then(
-        response => {
-          this.ratings = response.rates;
-        },
-        error => {
-          console.log("ERROR RATING");
-        }
-      );
+      this.$http
+        .get("http://bootcamp.opole.pl/books/my-rates/mx5t")
+        .then(
+          response => {
+            return response.json();
+            // this.ratings = response.rates;
+            // console.log(response);
+            // console.log(this.books);
+
+            // for(var j=0;j<this.response.rates.length;j++)
+            // {
+            //   for(var i=0;i<this.books.length;i++)
+            //   {
+            //     if(this.books[i].id==this.response.rates[j].bookId)
+            //     {
+            //       var rate = parseFloat(this.response.rates[j].sum / response.rates[j].rates).toFixed(2);
+            //       this.set(this.books[i],ratingId,this.response.rates[j].id);
+            //       this.set(this.books[i],rating,rate);
+            //     }
+            //   }
+            // }
+          },
+          error => {
+            console.log("ERROR RATING");
+          }
+        )
+        .then(data => {
+          console.log(data);
+        });
     }
   }
 };
