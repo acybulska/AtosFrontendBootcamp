@@ -10,28 +10,19 @@ fromIndex to opcjonalny parametr, kóry wskazuje od której pozycji ma zacząć 
 
 function lastIndexOf(needle, haystack, fromIndex) {
 
-    if (typeof fromIndex !== "number")
-    {
-        fromIndex = parseInt(fromIndex);
-    }
-
-    if (fromIndex < 0 || isNaN(fromIndex) || fromIndex>=haystack.length)
-    {
+    if (fromIndex < 0 || isNaN(fromIndex) || fromIndex >= haystack.length || typeof fromIndex !== "number") {
         fromIndex = 0;
     }
-    if (! typeof needle === "string")
-    {
+    if (! typeof needle === "string") {
         needle.toString();
     }
 
-    if (! typeof haystack === "string")
-    {
+    if (! typeof haystack === "string") {
         haystack.toString();
     }
 
-    for(var i=haystack.length; i>fromIndex;i--)
-    {
-        if(haystack.substr(i,needle.length)==needle) return i;
+    for (var i = haystack.length; i > fromIndex; i--) {
+        if (haystack.substr(i, needle.length) == needle) return i;
     }
     return 0;
 }
@@ -50,16 +41,14 @@ lastIndexOf(needle, haystack, -1);
 */
 
 function findLast(findFunction, array) {
-    for(var i=array.length;i>0;i--)
-    {
-        if(findFunction(arr[i]))
-        {
+    for (var i = array.length; i > 0; i--) {
+        if (findFunction(arr[i])) {
             return arr[i];
         }
     }
 }
 
-var arr = [1,2,3,4,5,5,5,6,3,2,1];
-var foo = function(arrayVal) {return arrayVal===2;}
+var arr = [1, 2, 3, 4, 5, 5, 5, 6, 3, 2, 1];
+var foo = function (arrayVal) { return arrayVal === 2; }
 
-findLast(foo,arr);
+findLast(foo, arr);
