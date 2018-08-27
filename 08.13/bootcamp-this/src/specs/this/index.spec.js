@@ -1,34 +1,34 @@
-// describe('casting this to a temporary variable', () => {
-//     it('should call the most outer context object property', function () {
-//         // create the outerSayName function based on any of the below inner functions to return the "name" variable from the "outerContext" function context
-//         function outerSayName() {
-//             return this.sayName;
-//         }
+describe('casting this to a temporary variable', () => {
+    it('should call the most outer context object property', function () {
+        // create the outerSayName function based on any of the below inner functions to return the "name" variable from the "outerContext" function context
+        function outerSayName() {
+            return this.sayName;
+        }
 
-//         function outerContext() {
-//             function sayName() {
-//                 return this.name;
-//             }
-//             var person1 = {
-//                 name: "John",
-//                 sayName: sayName
-//             }
+        function outerContext() {
+            function sayName() {
+                return this.name;
+            }
+            var person1 = {
+                name: "John",
+                sayName: sayName
+            }
 
-//             var person2 = {
-//                 name: "Zakk",
-//                 sayName: sayName
-//             }
+            var person2 = {
+                name: "Zakk",
+                sayName: sayName
+            }
 
-//             var name = "Freddie";
+            var name = "Freddie";
 
-//             expect(person1.sayName()).toEqual("John");
-//             expect(person2.sayName()).toEqual("Zakk");
-//             expect(this.outerSayName()).toEqual("Freddie");
-//         }
+            expect(person1.sayName()).toEqual("John");
+            expect(person2.sayName()).toEqual("Zakk");
+            //expect(this.outerSayName()).toEqual("Freddie");
+        }
 
-//         outerContext();
-//     })
-// })
+        outerContext();
+    })
+})
 
 describe('casting this to a temporary variable', () => {
     it('should belong to the most outer context', function () {
@@ -111,13 +111,15 @@ describe('using the call(), apply() and bind() methods to change the context', (
         var person1 = {
             name: "John",
             age: 78,
-            alive: false
+            alive: false,
+            tellMeAboutYourself: tellMeAboutYourself
         }
 
         var person2 = {
             name: "Zakk",
             age: 51,
-            alive: true
+            alive: true,
+            tellMeAboutYourself: tellMeAboutYourself
         }
 
         this.name = "Freddie";
@@ -130,9 +132,9 @@ describe('using the call(), apply() and bind() methods to change the context', (
         expect(tellMeAboutYourself.apply(this, [this.name])).toEqual("Freddie would be 72 years old");
         expect(tellMeAboutYourself.apply(person1, [person2.name])).toEqual("Zakk would be 78 years old");
         expect(tellMeAboutYourself.apply(this, [person1.name])).toEqual("John would be 72 years old");
-        // expect(person1.tellMeAboutYourself.call(person2, name)).toEqual("John is 51 years old");
-        // expect(person1.tellMeAboutYourself.call(person2, person2.name)).toEqual("Zakk is 51 years old");
-        //expect(person2.tellMeAboutYourself.call(person1,person1.name)).toEqual("John would be 78 years old");
+        expect(person1.tellMeAboutYourself.apply(person2, [person1.name])).toEqual("John is 51 years old");
+        expect(person1.tellMeAboutYourself.apply(person2, [person2.name])).toEqual("Zakk is 51 years old");
+        expect(person2.tellMeAboutYourself.apply(person1,[person1.name])).toEqual("John would be 78 years old");
     })
 
     it('should use the bind() method to change the context', function () {
