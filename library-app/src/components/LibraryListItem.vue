@@ -13,6 +13,9 @@
     </div>
   </td>
   <td>
+    
+  </td>
+  <td>
     <button type="submit" class="btn btn-danger mb-2" @click="deleteBook"><i class='far fa-trash-alt'></i></button>
   </td>
 </tr>
@@ -24,7 +27,8 @@ export default {
     return {
       bookAuthor: this.description,
       bookTitle: this.title,
-      bookId: this.id
+      bookId: this.id,
+      bookRating: this.rating
     };
   },
   props: {

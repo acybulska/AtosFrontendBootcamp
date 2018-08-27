@@ -39,14 +39,17 @@ export default {
         title: "",
         description: ""
       },
-      books: []
+      books: [],
+      ratings: []
     };
   },
   mounted() {
     this.fetchData();
+    this.fetchRatings();
   },
   updated() {
     this.fetchData();
+    this.fetchRatings();
   },
   methods: {
     addBook: function() {
@@ -76,6 +79,16 @@ export default {
           // console.log(data.books);
           this.books = data.books;
         });
+    },
+    fetchRatings: function() {
+      this.$http.get("http://bootcamp.opole.pl/books/my-rates/mx5t").then(
+        response => {
+          this.ratings = response.rates;
+        },
+        error => {
+          console.log("ERROR RATING");
+        }
+      );
     }
   }
 };
