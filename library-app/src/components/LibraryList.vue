@@ -1,14 +1,19 @@
 <template>
-    <div class="container">
-    <div id="bookList">
-        <ul>
-            <li v-for="(book, index) in books" :key="index">
-                <LibraryListItem :description="book.description" :title="book.title" :id="book.id"></LibraryListItem>
-            </li>
-        </ul>
-    </div>
-        <p>Books count {{ books.length }}</p>
-    </div>
+  <div>
+    <table id="bookList" class="table">
+      <thead>
+        <tr>
+          <th scope="col">Author</th>
+          <th scope="col">Title</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody v-for="(book, index) in books" :key="index">
+        <LibraryListItem :description="book.description" :title="book.title" :id="book.id"></LibraryListItem>
+      </tbody>
+    </table>
+    <p>Books count {{ books.length }}</p>
+  </div>
 </template>
 
 <script>

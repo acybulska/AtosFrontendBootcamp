@@ -1,9 +1,21 @@
 <template>
-    <div>
-        <input type="text" v-model="bookAuthor" @change="editBook">
-        <input type="text" v-model="bookTitle" @change="editBook">
-        <button @click="deleteBook">Delete</button>
+<tr>
+  <td>
+    <div class="form-group mb-2">
+      <label for="authorInput" class="sr-only">Author</label>
+      <input id="authorInput" type="text" class="form-control" v-model="bookAuthor" @change="editBook">
     </div>
+  </td>
+  <td>
+    <div class="form-group mb-2">
+      <label for="titleInput" class="sr-only">Title</label>
+      <input type="text" class="form-control" id="titleInput" v-model="bookTitle" @change="editBook">
+    </div>
+  </td>
+  <td>
+    <button type="submit" class="btn btn-danger mb-2" @click="deleteBook"><i class='far fa-trash-alt'></i></button>
+  </td>
+</tr>
 </template>
 
 <script>

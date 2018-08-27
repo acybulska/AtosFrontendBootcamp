@@ -1,15 +1,26 @@
 <template>
-  <div id="app">
-    <h1>My Book Library</h1>
-    <p>Add new book:</p>
-    <div class="addBookDiv">
-      <input type="text" v-model="newBook.description" placeholder="Author">
-      <input type="text" v-model="newBook.title" placeholder="Title">
-      <button @click="addBook">Add</button>
+  <div id="app" class="container">
+    <div class="jumbotron">
+      <h1 class="text-center">My Book Library</h1>
+      <hr>
+        <div class="addBookDiv">
+          <form class="form-inline align-middle">
+            <div class="form-group mx-sm-3 mb-2">
+              <h3>Add new book</h3>
+            </div>
+            <div class="form-group mb-2">
+              <label for="authorInput" class="sr-only">Author</label>
+              <input id="authorInput" type="text" class="form-control" v-model="newBook.description" placeholder="Author">
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="titleInput" class="sr-only">Title</label>
+              <input type="text" class="form-control" id="titleInput" v-model="newBook.title" placeholder="Title">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2" @click="addBook"><i class="fas fa-plus text-white"></i></button>
+          </form>
+        </div>
     </div>
-    <body>
-      <Library :books="books"></Library>
-    </body>
+    <Library :books="books"></Library>
   </div>
 </template>
 
@@ -47,8 +58,8 @@ export default {
         .then(
           response => {
             this.fetchData();
-            this.newBook.description="";
-            this.newBook.title="";
+            this.newBook.description = "";
+            this.newBook.title = "";
           },
           error => {
             console.log("ERROR");
@@ -71,12 +82,7 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+table {
+  margin: 0 auto;
 }
 </style>
