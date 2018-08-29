@@ -5,13 +5,14 @@
         <tr>
           <th scope="col">Author</th>
           <th scope="col">Title</th>
-          <!-- <th scope="col"></th> -->
-          <th scope="col"></th>
+          <th scope="col">Rate</th>
+          <th scope="col">Delete</th>
         </tr>
       </thead>
-      <tbody v-for="(book, index) in books" :key="index">
-        <LibraryListItem :description="book.description" :title="book.title" :id="book.id" ></LibraryListItem>
-        <!-- :rating="book.rating" -->
+      <tbody>
+        <LibraryListItem v-for="book in books" :key="book.id" 
+        :description="book.description" :title="book.title" :id="book.id" :rating="book.rating"
+         v-on:update-book="onUpdatedBook"></LibraryListItem>
       </tbody>
     </table>
     <p>Books count {{ books.length }}</p>
@@ -22,15 +23,17 @@
 import LibraryListItem from "./LibraryListItem";
 
 export default {
-  data() {
-    return {};
-  },
   components: {
     LibraryListItem
   },
   props: {
     books: {
       type: Array
+    }
+  },
+  methods: {
+    onUpdatedBook: function (id) {
+      this.$emit("update-book");
     }
   }
 };

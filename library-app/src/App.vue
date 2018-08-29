@@ -20,12 +20,11 @@
           </form>
         </div>
     </div>
-    <Library :books="books"></Library>
+    <Library :books="books" v-on:update-book="onUpdatedBook"></Library>
   </div>
 </template>
 
 <script>
-// import Vue from 'vue'
 import Library from "./components/LibraryList";
 
 export default {
@@ -44,13 +43,11 @@ export default {
   },
   mounted() {
     this.fetchData();
-    this.fetchRatings();
-  },
-  updated() {
-    this.fetchData();
-    this.fetchRatings();
   },
   methods: {
+    onUpdatedBook: function() {
+      this.fetchData();
+    },
     addBook: function() {
       console.log(this.newBook);
       this.$http
@@ -59,9 +56,7 @@ export default {
         })
         .then(
           response => {
-            this.fetchData();
-            this.newBook.description = "";
-            this.newBook.title = "";
+            console.log(response);
           },
           error => {
             console.log("ERROR");
@@ -75,39 +70,40 @@ export default {
           return response.json();
         })
         .then(data => {
-          // console.log(data.books);
-          this.books = data.books;
+          this.fetchRatings(data.books);
         });
     },
-    fetchRatings: function() {
+    fetchRatings: function(booksData) {
       this.$http
         .get("http://bootcamp.opole.pl/books/my-rates/mx5t")
-        .then(
-          response => {
-            return response.json();
-            // this.ratings = response.rates;
-            // console.log(response);
-            // console.log(this.books);
-
-            // for(var j=0;j<this.response.rates.length;j++)
-            // {
-            //   for(var i=0;i<this.books.length;i++)
-            //   {
-            //     if(this.books[i].id==this.response.rates[j].bookId)
-            //     {
-            //       var rate = parseFloat(this.response.rates[j].sum / response.rates[j].rates).toFixed(2);
-            //       this.set(this.books[i],ratingId,this.response.rates[j].id);
-            //       this.set(this.books[i],rating,rate);
-            //     }
-            //   }
-            // }
-          },
-          error => {
-            console.log("ERROR RATING");
-          }
-        )
+        .then(response => {
+          return response.json();
+        })
         .then(data => {
-          console.log(data);
+          console.log(data.rates);
+          if (data.rates.length > 0) {
+            for (var i = 0; i < booksData.length; i++) {
+              this.$set(booksData[i], "rating", "0.00");
+              for (var j = 0; j < data.rates.length; j++) {
+                if (booksData[i].id == data.rates[j].book) {
+                  var rate = parseFloat(
+                    data.rates[j].sum / data.rates[j].rates
+                  ).toFixed(2);
+                  console.log(
+                    "IN bookid " + booksData[i].id + " rated " + rate
+                  );
+                  this.$set(booksData[i], "rating", rate);
+                }
+              }
+            }
+          } else {
+            for (var i = 0; i < booksData.length; i++) {
+              var rate = "0.00";
+              this.$set(booksData[i], "rating", rate);
+            }
+          }
+          this.books = booksData;
+          console.log(this.books);
         });
     }
   }
