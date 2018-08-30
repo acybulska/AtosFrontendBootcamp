@@ -1,6 +1,12 @@
 <template>
 <tr>
   <td>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" id="multipleCheck">
+      <label class="form-check-label sr-only" for="multipleCheck">Multiple</label>
+    </div>
+  </td>
+  <td>
     <div class="form-group mb-2">
       <label for="authorInput" class="sr-only">Author</label>
       <input id="authorInput" type="text" class="form-control" v-model="bookAuthor" @change="editBook">
@@ -105,7 +111,9 @@ export default {
         )
         .then(response => {
           console.log(response);
-          var rate = parseFloat(response.body.result.sum / response.body.result.rates).toFixed(2);
+          var rate = parseFloat(
+            response.body.result.sum / response.body.result.rates
+          ).toFixed(2);
           this.bookRating = +rate;
           console.log("new rating:" + rate);
         });

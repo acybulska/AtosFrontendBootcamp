@@ -3,9 +3,10 @@
     <table id="bookList" class="table table-borderless">
       <thead>
         <tr>
+          <th scope="col"></th>
           <th scope="col">Author</th>
           <th scope="col">Title</th>
-          <th scope="col">Rate</th>
+          <th scope="col">Rating</th>
           <th scope="col">Delete</th>
         </tr>
       </thead>
@@ -32,7 +33,7 @@ export default {
     }
   },
   methods: {
-    onUpdatedBook: function (id) {
+    onUpdatedBook: function(id) {
       this.$emit("update-book");
     }
   }

@@ -3,22 +3,43 @@
     <div class="jumbotron">
       <h1 class="text-center">My Book Library</h1>
       <hr>
-        <div class="addBookDiv">
-          <form class="form-inline align-middle">
-            <div class="form-group mx-sm-3 mb-2">
-              <h3>Add new book</h3>
-            </div>
-            <div class="form-group mb-2">
-              <label for="authorInput" class="sr-only">Author</label>
-              <input id="authorInput" type="text" class="form-control" v-model="newBook.description" placeholder="Author">
-            </div>
-            <div class="form-group mx-sm-3 mb-2">
-              <label for="titleInput" class="sr-only">Title</label>
-              <input type="text" class="form-control" id="titleInput" v-model="newBook.title" placeholder="Title">
-            </div>
-            <button type="submit" class="btn btn-primary mb-2" @click="addBook"><i class="fas fa-plus text-white"></i></button>
-          </form>
+      <div class="addBookDiv row">
+        <div class="col-md-12">
+        <form class="form-inline">
+          <div class="form-group mx-sm-3 mb-2">
+            <h3>Add new book</h3>
+          </div>
+          <div class="form-group mb-2">
+            <label for="authorInput" class="sr-only">Author</label>
+            <input id="authorInput" type="text" class="form-control" v-model="newBook.description" placeholder="Author">
+          </div>
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="titleInput" class="sr-only">Title</label>
+            <input type="text" class="form-control" id="titleInput" v-model="newBook.title" placeholder="Title">
+          </div>
+          <button type="submit" class="btn btn-success mb-2" @click="addBook"><i class="fas fa-plus text-white"></i></button>
+        </form></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <button type="button" class="btn btn-danger" id="deleteMultipleBtn"><i class='far fa-trash-alt'></i> Delete selected</button>
+        <button type="button" class="btn btn-success" id="addFromFileBtn"><i class="far fa-file"></i> Add from file</button>
+      </div>
+      <div class="col-md-4">
+        <span class="font-weight-bold">Sort by</span>
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-secondary">Author</button>
+          <button type="button" class="btn btn-secondary">Title</button>
+          <button type="button" class="btn btn-secondary">Rating</button>
         </div>
+      </div>
+      <form class="col-md-4 form-inline align-right">
+        <input type="search" aria-label="Search" class="form-control flex-grow-1" id="searchInput" placeholder="Search">
+        <button class="btn btn-dark" type="submit" onclick="searchElement()">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
     </div>
     <Library :books="books" v-on:update-book="onUpdatedBook"></Library>
   </div>
