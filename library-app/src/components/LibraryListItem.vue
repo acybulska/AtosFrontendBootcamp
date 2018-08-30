@@ -32,30 +32,18 @@ import StarRating from "vue-star-rating";
 export default {
   data() {
     return {
-      bookAuthor: this.description,
-      bookTitle: this.title,
-      bookId: this.id,
-      bookRating: +this.rating
+      bookAuthor: this.book.description,
+      bookTitle: this.book.title,
+      bookId: this.book.id,
+      bookRating: +this.book.rating
     };
   },
   components: {
     StarRating
   },
   props: {
-    description: {
-      type: String,
-      required: true
-    },
-    title: {
-      type: String,
-      required: true
-    },
-    id: {
-      type: String,
-      required: true
-    },
-    rating: {
-      type: String,
+    book: {
+      type: Object,
       required: true
     }
   },
@@ -67,7 +55,6 @@ export default {
         )
         .then(
           response => {
-            console.log("Book deleted in database:" + response.body.status);
             this.$emit("update-book");
           },
           error => {
@@ -97,7 +84,6 @@ export default {
         );
     },
     rateBook: function(rating) {
-      console.log("will rate");
       this.$http
         .post(
           "http://bootcamp.opole.pl/books/rate/mx5t",
@@ -115,7 +101,6 @@ export default {
             response.body.result.sum / response.body.result.rates
           ).toFixed(2);
           this.bookRating = +rate;
-          console.log("new rating:" + rate);
         });
     }
   }

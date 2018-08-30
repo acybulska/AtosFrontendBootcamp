@@ -28,20 +28,15 @@
       </div>
       <div class="col-md-4">
         <span class="font-weight-bold">Sort by</span>
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-secondary">Author</button>
-          <button type="button" class="btn btn-secondary">Title</button>
-          <button type="button" class="btn btn-secondary">Rating</button>
+        <div class="btn-group" role="group" aria-label="Sorting">
+          <button type="button" class="btn btn-secondary" v-for="(key,index) in sortColumns" :key="key" @click="sortBy(key)">{{sortTitles[index]}}</button>
         </div>
       </div>
       <form class="col-md-4 form-inline align-right">
-        <input type="search" aria-label="Search" class="form-control flex-grow-1" id="searchInput" placeholder="Search">
-        <button class="btn btn-dark" type="submit" onclick="searchElement()">
-          <i class="fas fa-search"></i>
-        </button>
+        <input type="search" aria-label="Search" class="form-control flex-grow-1" id="searchInput" placeholder="Search" v-model="searchQuery">
       </form>
     </div>
-    <Library :books="books" v-on:update-book="onUpdatedBook"></Library>
+    <Library :books="filteredBooks" v-on:update-book="onUpdatedBook"></Library>
   </div>
 </template>
 
@@ -54,20 +49,62 @@ export default {
     Library
   },
   data() {
+    var sortOrder = {};
+    var sortTitles = ["Author", "Title", "Rating"];
+    var sortColumns = ["description", "title", "rating"];
+    sortColumns.forEach(function(key) {
+      sortOrder[key] = 1;
+    });
     return {
       newBook: {
         title: "",
         description: ""
       },
-      books: []
+      books: [],
+      searchQuery: "",
+      sortColumns: sortColumns,
+      sortTitles: sortTitles,
+      sortKey: "",
+      sortOrder: sortOrder
     };
   },
   mounted() {
     this.fetchData();
   },
+  computed: {
+    filteredBooks: function() {
+      var sortKey = this.sortKey;
+      var searchQuery = this.searchQuery && this.searchQuery.toLowerCase();
+      var order = this.sortOrder[sortKey] || 1;
+      var books = this.books;
+      if (searchQuery) {
+        books = books.filter(function(row) {
+          return Object.keys(row).some(function(key) {
+            return (
+              String(row[key])
+                .toLowerCase()
+                .indexOf(searchQuery) > -1
+            );
+          });
+        });
+      }
+      if (sortKey) {
+        books = books.slice().sort(function(a, b) {
+          a = a[sortKey];
+          b = b[sortKey];
+          return (a === b ? 0 : a > b ? 1 : -1) * order;
+        });
+      }
+      return books;
+    }
+  },
   methods: {
     onUpdatedBook: function() {
       this.fetchData();
+    },
+    sortBy: function(key) {
+      this.sortKey = key;
+      this.sortOrder[key] = this.sortOrder[key] * -1;
     },
     addBook: function() {
       console.log(this.newBook);
@@ -110,9 +147,7 @@ export default {
                   var rate = parseFloat(
                     data.rates[j].sum / data.rates[j].rates
                   ).toFixed(2);
-                  console.log(
-                    "IN bookid " + booksData[i].id + " rated " + rate
-                  );
+                  console.log();
                   this.$set(booksData[i], "rating", rate);
                 }
               }

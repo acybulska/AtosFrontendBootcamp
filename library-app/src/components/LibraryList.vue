@@ -11,9 +11,7 @@
         </tr>
       </thead>
       <tbody>
-        <LibraryListItem v-for="book in books" :key="book.id" 
-        :description="book.description" :title="book.title" :id="book.id" :rating="book.rating"
-         v-on:update-book="onUpdatedBook"></LibraryListItem>
+        <LibraryListItem v-for="book in books" :key="book.id" :book="book" v-on:update-book="onUpdatedBook"></LibraryListItem>
       </tbody>
     </table>
     <p>Books count {{ books.length }}</p>
@@ -28,9 +26,7 @@ export default {
     LibraryListItem
   },
   props: {
-    books: {
-      type: Array
-    }
+    books: Array
   },
   methods: {
     onUpdatedBook: function(id) {
