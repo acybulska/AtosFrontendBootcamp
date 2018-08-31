@@ -11,7 +11,7 @@
         </tr>
       </thead>
       <tbody>
-        <LibraryListItem v-for="book in books" :key="book.id" :book="book" v-on:update-book="onUpdatedBook"></LibraryListItem>
+        <LibraryListItem v-for="book in books" :key="book.id" :book="book" v-on:update-book="onUpdatedBook" v-on:checkbox-id="getId"></LibraryListItem>
       </tbody>
     </table>
     <p>Books count {{ books.length }}</p>
@@ -26,11 +26,15 @@ export default {
     LibraryListItem
   },
   props: {
-    books: Array
+    books: Array,
+    deleteMultiple: Array
   },
   methods: {
-    onUpdatedBook: function(id) {
+    onUpdatedBook: function() {
       this.$emit("update-book");
+    },
+    getId: function(id) {
+      this.$emit("checkbox-id", id);
     }
   }
 };

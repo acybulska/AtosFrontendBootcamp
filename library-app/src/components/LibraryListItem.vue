@@ -2,8 +2,8 @@
 <tr>
   <td>
     <div class="form-group form-check">
-      <input type="checkbox" class="form-check-input" id="multipleCheck">
-      <label class="form-check-label sr-only" for="multipleCheck">Multiple</label>
+      <input type="checkbox" class="form-check-input" id="multipleCheck" @click="getId">
+      <label class="form-check-label sr-only" for="multipleCheck">Checkbox</label>
     </div>
   </td>
   <td>
@@ -48,6 +48,9 @@ export default {
     }
   },
   methods: {
+    getId: function() {
+      this.$emit("checkbox-id", this.bookId);
+    },
     deleteBook: function() {
       this.$http
         .delete(

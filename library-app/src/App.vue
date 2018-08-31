@@ -23,7 +23,7 @@
     </div>
     <div class="row">
       <div class="col-md-4">
-        <button type="button" class="btn btn-danger" id="deleteMultipleBtn"><i class='far fa-trash-alt'></i> Delete selected</button>
+        <button type="button" class="btn btn-danger" id="deleteMultipleBtn"><i class='far fa-trash-alt' @click="deleteMultipleBooks"></i> Delete selected</button>
         <button type="button" class="btn btn-success" id="addFromFileBtn"><i class="far fa-file"></i> Add from file</button>
       </div>
       <div class="col-md-4">
@@ -36,7 +36,7 @@
         <input type="search" aria-label="Search" class="form-control flex-grow-1" id="searchInput" placeholder="Search" v-model="searchQuery">
       </form>
     </div>
-    <Library :books="filteredBooks" v-on:update-book="onUpdatedBook"></Library>
+    <Library :books="filteredBooks" :deleteMultiple="deleteMultiple" v-on:update-book="onUpdatedBook" v-on:checkbox-id="getId"></Library>
   </div>
 </template>
 
@@ -65,7 +65,8 @@ export default {
       sortColumns: sortColumns,
       sortTitles: sortTitles,
       sortKey: "",
-      sortOrder: sortOrder
+      sortOrder: sortOrder,
+      deleteMultiple: []
     };
   },
   mounted() {
@@ -101,6 +102,24 @@ export default {
   methods: {
     onUpdatedBook: function() {
       this.fetchData();
+    },
+    getId: function(id) {
+      var exists = false;
+      if (this.deleteMultiple.length !== 0) {
+        this.deleteMultiple.forEach(function(key) {
+          if (key === id) {
+            exists = true;
+          }
+        });
+      }
+      const index = this.deleteMultiple.indexOf(id);
+      exists
+        ? this.deleteMultiple.splice(index, 1)
+        : this.deleteMultiple.push(id);
+      console.log("length:" + this.deleteMultiple.length);
+    },
+    deleteMultipleBooks: function() {
+      
     },
     sortBy: function(key) {
       this.sortKey = key;
