@@ -26,9 +26,10 @@
         <button type="button" class="btn btn-danger" id="deleteMultipleBtn" @click="deleteMultipleBooks">
           <i class='far fa-trash-alt'></i> Delete selected
         </button>
-        <button type="button" class="btn btn-success" id="addFromFileBtn">
+        <button type="button" class="btn btn-success" id="addFromFileBtn" @click="addBooksModal=true">
           <i class="far fa-file"></i> Add from file
         </button>
+        <modal v-if="addBooksModal" @close="addBooksModal = false"></modal>
       </div>
       <div class="col-md-4">
         <span class="font-weight-bold">Sort by</span>
@@ -46,11 +47,13 @@
 
 <script>
 import Library from "./components/LibraryList";
+import Modal from "./components/AddBooksModal";
 
 export default {
   name: "App",
   components: {
-    Library
+    Library,
+    Modal
   },
   data() {
     var sortOrder = {};
@@ -70,7 +73,8 @@ export default {
       sortTitles: sortTitles,
       sortKey: "",
       sortOrder: sortOrder,
-      deleteMultiple: []
+      deleteMultiple: [],
+      addBooksModal: false
     };
   },
   mounted() {
@@ -208,5 +212,19 @@ export default {
 <style>
 table {
   margin: 0 auto;
+}
+
+.modal-enter {
+  opacity: 0;
+}
+
+.modal-leave-active {
+  opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }
 </style>
