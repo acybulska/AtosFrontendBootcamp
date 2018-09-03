@@ -1,0 +1,373 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Bootcamp",
+		"_postman_id": "3d470cd4-ab8c-9714-0e26-43950993f31b",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all books",
+			"request": {
+				"url": "{{BASE_URL}}/{{token}}/books/",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "author_id",
+							"value": "9",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "The Shining",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "A family spends winter in a hotel and horrifying things start to happen",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"value": "",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update book (change params!)",
+			"request": {
+				"url": "{{BASE_URL}}/{{token}}/books/",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "author_id",
+							"value": "9",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "The Shining",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "A family spends winter in a hotel and horrifying things start to happen",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add book (change params!)",
+			"request": {
+				"url": "{{BASE_URL}}/{{token}}/books/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "author_id",
+							"value": "9",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "The Shining",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "A family spends winter in a hotel and horrifying things start to happen",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete book (add /id)",
+			"request": {
+				"url": "{{BASE_URL}}/{{token}}/books/",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "author_id",
+							"value": "9",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "The Shining",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "A family spends winter in a hotel and horrifying things start to happen",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get authors",
+			"request": {
+				"url": "{{BASE_URL}}/{{token}}/authors/",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "author_id",
+							"value": "9",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "The Shining",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "A family spends winter in a hotel and horrifying things start to happen",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add authors",
+			"request": {
+				"url": "{{BASE_URL}}/{{token}}/authors/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "J. K. Rowling",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get all rates",
+			"request": {
+				"url": "{{BASE_URL}}/{{token}}/rates/",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "author_id",
+							"value": "9",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "The Shining",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "A family spends winter in a hotel and horrifying things start to happen",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"value": "",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Give rate (change bookId and rate)",
+			"request": {
+				"url": "{{BASE_URL}}/{{token}}/rates/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "author_id",
+							"value": "9",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "title",
+							"value": "The Shining",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "description",
+							"value": "A family spends winter in a hotel and horrifying things start to happen",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "{{Bid}}",
+							"value": "33",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "rate",
+							"value": "3",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
