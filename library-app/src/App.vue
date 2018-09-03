@@ -23,8 +23,12 @@
     </div>
     <div class="row">
       <div class="col-md-4">
-        <button type="button" class="btn btn-danger" id="deleteMultipleBtn"><i class='far fa-trash-alt' @click="deleteMultipleBooks"></i> Delete selected</button>
-        <button type="button" class="btn btn-success" id="addFromFileBtn"><i class="far fa-file"></i> Add from file</button>
+        <button type="button" class="btn btn-danger" id="deleteMultipleBtn" @click="deleteMultipleBooks">
+          <i class='far fa-trash-alt'></i> Delete selected
+        </button>
+        <button type="button" class="btn btn-success" id="addFromFileBtn">
+          <i class="far fa-file"></i> Add from file
+        </button>
       </div>
       <div class="col-md-4">
         <span class="font-weight-bold">Sort by</span>
@@ -119,7 +123,23 @@ export default {
       console.log("length:" + this.deleteMultiple.length);
     },
     deleteMultipleBooks: function() {
-      
+      for (const i of this.deleteMultiple) {
+        console.log("Id" + i);
+        this.deleteBook(i);
+      }
+      this.fetchData();
+    },
+    deleteBook: function(id) {
+      this.$http
+        .delete("http://bootcamp.opole.pl/books/delete-book/" + id + "/mx5t")
+        .then(
+          response => {
+            console.log("Book " + id + "deleted");
+          },
+          error => {
+            console.log("ERROR");
+          }
+        );
     },
     sortBy: function(key) {
       this.sortKey = key;

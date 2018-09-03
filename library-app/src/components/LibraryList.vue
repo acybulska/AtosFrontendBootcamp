@@ -26,8 +26,7 @@ export default {
     LibraryListItem
   },
   props: {
-    books: Array,
-    deleteMultiple: Array
+    books: Array
   },
   methods: {
     onUpdatedBook: function() {
@@ -36,6 +35,7 @@ export default {
     getId: function(id) {
       this.$emit("checkbox-id", id);
     }
+
   }
 };
 </script>
