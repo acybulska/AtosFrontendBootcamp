@@ -10,22 +10,28 @@
                     </div>
                     <div class="modal-body">
                         <slot name="body">
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
-                                    <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
-                                </div>
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-success" type="button" id="inputGroupFileAddon04">Submit</button>
-                                </div>
+                            <div class="input-group custom-file">
+                                <input type="file" class="custom-file-input" id="inputFile" aria-describedby="inputFile" @change="readFile">
+                                <label class="custom-file-label" for="inputFile">Choose file</label>
                             </div>
-                            <table class="table" id="addFileTable"></table>
+                            <table class="table" v-if="books.length!==0">
+                                <thead>
+                                    <th>Author</th>
+                                    <th>Title</th>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(book, index) in books" :key="index">
+                                        <td>{{book.description}}</td>
+                                        <td>{{book.title}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </slot>
                     </div>
                     <div class="modal-footer">
                         <slot name="footer">
                             <button class="modal-default-button btn btn-outline-secondary" @click="$emit('close')">Cancel</button>
-                            <button class="modal-default-button btn btn-outline-success" @click="$emit('close')">OK</button>
+                            <button class="modal-default-button btn btn-outline-success" @click="handler">OK</button>
                         </slot>
                     </div>
                 </div>
@@ -35,7 +41,39 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      books: []
+    };
+  },
+  methods: {
+    readFile: function(ev) {
+      const f = ev.target.files[0];
+
+      if (f) {
+        var r = new FileReader();
+        r.onload = e => {
+          var contents = e.target.result;
+          var booksFile = JSON.parse(contents);
+          booksFile.forEach(element => {
+            this.books.push({
+              title: element.title,
+              description: element.description
+            });
+          });
+        };
+        r.readAsText(f);
+      } else {
+        alert("Failed to load file");
+      }
+    },
+    handler: function() {
+      this.$emit("close");
+      this.$emit("get-books", this.books);
+    }
+  }
+};
 </script>
 
 <style scoped>

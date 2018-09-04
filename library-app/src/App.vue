@@ -17,7 +17,7 @@
             <label for="titleInput" class="sr-only">Title</label>
             <input type="text" class="form-control" id="titleInput" v-model="newBook.title" placeholder="Title">
           </div>
-          <button type="submit" class="btn btn-success mb-2" @click="addBook"><i class="fas fa-plus text-white"></i></button>
+          <button type="submit" class="btn btn-success mb-2" @click="addBook(newBook)"><i class="fas fa-plus text-white"></i></button>
         </form></div>
       </div>
     </div>
@@ -29,7 +29,7 @@
         <button type="button" class="btn btn-success" id="addFromFileBtn" @click="addBooksModal=true">
           <i class="far fa-file"></i> Add from file
         </button>
-        <modal v-if="addBooksModal" @close="addBooksModal = false"></modal>
+        <modal v-if="addBooksModal" @close="addBooksModal = false" @get-books="addMultipleBooks"></modal>
       </div>
       <div class="col-md-4">
         <span class="font-weight-bold">Sort by</span>
@@ -126,12 +126,17 @@ export default {
         : this.deleteMultiple.push(id);
       console.log("length:" + this.deleteMultiple.length);
     },
+    sortBy: function(key) {
+      this.sortKey = key;
+      this.sortOrder[key] = this.sortOrder[key] * -1;
+    },
     deleteMultipleBooks: function() {
       for (const i of this.deleteMultiple) {
-        console.log("Id" + i);
         this.deleteBook(i);
+        if (i === this.deleteMultiple.length - 1) {
+          this.fetchData();
+        }
       }
-      this.fetchData();
     },
     deleteBook: function(id) {
       this.$http
@@ -139,20 +144,25 @@ export default {
         .then(
           response => {
             console.log("Book " + id + "deleted");
+            if (this.deleteMultiple.length === 0) {
+              this.fetchData();
+            }
           },
           error => {
             console.log("ERROR");
           }
         );
     },
-    sortBy: function(key) {
-      this.sortKey = key;
-      this.sortOrder[key] = this.sortOrder[key] * -1;
+    addMultipleBooks: function(val) {
+      for (const i of val) {
+        this.addBook(i);
+      }
+      this.fetchData();
     },
-    addBook: function() {
-      console.log(this.newBook);
+    addBook: function(newB) {
+      console.log(newB);
       this.$http
-        .post("http://bootcamp.opole.pl/books/add-book/mx5t", this.newBook, {
+        .post("http://bootcamp.opole.pl/books/add-book/mx5t", newB, {
           emulateJSON: true
         })
         .then(
@@ -160,7 +170,7 @@ export default {
             console.log(response);
           },
           error => {
-            console.log("ERROR");
+            console.log("Error while adding book");
           }
         );
     },
