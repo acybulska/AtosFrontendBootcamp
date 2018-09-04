@@ -99,8 +99,8 @@ export default {
       }
       if (sortKey) {
         books = books.slice().sort(function(a, b) {
-          a = a[sortKey];
-          b = b[sortKey];
+          a = a[sortKey].toLowerCase();
+          b = b[sortKey].toLowerCase();
           return (a === b ? 0 : a > b ? 1 : -1) * order;
         });
       }
@@ -133,10 +133,8 @@ export default {
     deleteMultipleBooks: function() {
       for (const i of this.deleteMultiple) {
         this.deleteBook(i);
-        if (i === this.deleteMultiple.length - 1) {
-          this.fetchData();
-        }
       }
+      this.fetchData();
     },
     deleteBook: function(id) {
       this.$http
@@ -144,9 +142,6 @@ export default {
         .then(
           response => {
             console.log("Book " + id + "deleted");
-            if (this.deleteMultiple.length === 0) {
-              this.fetchData();
-            }
           },
           error => {
             console.log("ERROR");
@@ -160,11 +155,18 @@ export default {
       this.fetchData();
     },
     addBook: function(newB) {
-      console.log(newB);
+      console.log(newB.description + " " + newB.title);
       this.$http
-        .post("http://bootcamp.opole.pl/books/add-book/mx5t", newB, {
-          emulateJSON: true
-        })
+        .post(
+          "http://bootcamp.opole.pl/books/add-book/mx5t",
+          {
+            title: newB.title,
+            description: newB.description
+          },
+          {
+            emulateJSON: true
+          }
+        )
         .then(
           response => {
             console.log(response);
