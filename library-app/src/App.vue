@@ -124,7 +124,7 @@ export default {
       exists
         ? this.deleteMultiple.splice(index, 1)
         : this.deleteMultiple.push(id);
-      console.log("length:" + this.deleteMultiple.length);
+      console.log("Length:" + this.deleteMultiple.length);
     },
     sortBy: function(key) {
       this.sortKey = key;
@@ -141,7 +141,7 @@ export default {
         .delete("http://bootcamp.opole.pl/books/delete-book/" + id + "/mx5t")
         .then(
           response => {
-            console.log("Book " + id + "deleted");
+            console.log("Book " + id + " is deleted");
           },
           error => {
             console.log("ERROR");
