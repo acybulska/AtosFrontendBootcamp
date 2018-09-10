@@ -1,0 +1,19 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "label": "Wake up",
+      "completed": false
+    },
+    {
+      "id": 2,
+      "label": "Drink coffee",
+      "completed": true
+    },
+    {
+      "id": 3,
+      "label": "Go to work",
+      "completed": false
+    }
+  ]
+}
