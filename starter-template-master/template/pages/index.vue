@@ -1,8 +1,8 @@
 <template>
   <section class="container">
     <div>
-      <todo-form v-on:add-todo="addTodo"></todo-form>
-      <todo-list :todos="todos"></todo-list>
+      <todo-form></todo-form>
+      <todo-list></todo-list>
     </div>
   </section>
 </template>
@@ -15,44 +15,13 @@ import todoForm from "~/components/todoForm.vue";
 import todoList from "~/components/todoList.vue";
 
 export default {
-  data() {
-    return {};
-  },
-  computed: {
-    todos() {
-      return this.$store.getters.todos
-    }
-  },
   components: {
     "todo-list": todoList,
     "todo-form": todoForm
   },
   mounted: async function() {
-    //let response = await axios.get('/todos.json')
-    Vue.set(this, "todos", this.$store.state.todos);
-  },
-  methods: {
-    addTodo(label) {
-      if (label.length < 3) {
-        alert("Please provide at least 3 characters");
-      } else {
-        let newTodos = this.todos;
-        newTodos.push({
-          id: this.generateId(),
-          label: label,
-          completed: false
-        });
-        Vue.set(this, "todos", newTodos);
-      }
-    },
-   
-    generateId() {
-      let id = 0;
-      this.todos.forEach(todo => {
-        todo.id > id ? (id = todo.id) : id;
-      });
-      return id + 1;
-    }
+    // let response = await axios.get('/todos.json')
+    // Vue.set(this, "todos", this.$store.state.todos);
   }
 };
 </script>

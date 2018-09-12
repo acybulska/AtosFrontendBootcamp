@@ -1,32 +1,25 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
+import { loadTodos } from '../api/todos'
 
 const createStore = () => {
-
   return new Vuex.Store({
     state: {
-      "todos": [
-        {
-          "id": 1,
-          "label": "Wake Up",
-          "completed": false
-        },
-        {
-          "id": 2,
-          "label": "Drink coffee",
-          "completed": true
-        },
-        {
-          "id": 3,
-          "label": "Go to work",
-          "completed": false
-        },
-        {
-          "id": 4,
-          "label": "Code!",
-          "completed": false
-        }
-      ]
+      "todos": []
+    },
+    actions: {
+      markTodo({ commit }, payload) {
+        commit('markTodo', payload.id)
+      },
+      deleteTodo({ commit }, payload) {
+        commit('deleteTodo', payload.id)
+      },
+      addTodo({ commit }, payload) {
+        commit('addTodo', payload)
+      },
+      async initTodos({ commit }) {
+        commit('initTodos', await loadTodos())
+      }
     },
     mutations: {
       deleteTodo(state, id) {
@@ -38,12 +31,27 @@ const createStore = () => {
         Vue.set(state, "todos", state.todos.map(todo => {
           todo.id == id ? todo.completed = !todo.completed : null
           return todo
-        }))
+        }));
+      },
+      addTodo(state, todo) {
+        let newTodos = state.todos
+        newTodos.push({ id: todo.id, label: todo.label, completed: false });
+        Vue.set(state, "todos", newTodos);
+      },
+      initTodos: (state, todos) => {
+        Vue.set(state, "todos", todos)
       }
     },
     getters: {
       todos: state => {
         return state.todos
+      },
+      nextId: state => {
+        let id = 0;
+        state.todos.forEach(todo => {
+          todo.id > id ? (id = todo.id) : id;
+        })
+        return id + 1
       }
     }
   })

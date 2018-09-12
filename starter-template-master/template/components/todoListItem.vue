@@ -38,10 +38,10 @@ export default {
   },
   methods: {
     deleteTodo(id) {
-      this.$store.commit("deleteTodo", id);
+      this.$store.dispatch("deleteTodo", { id: id });
     },
     markTodo(id) {
-      this.$store.commit("markTodo", id);
+      this.$store.dispatch("markTodo", { id: id });
     }
   }
 };

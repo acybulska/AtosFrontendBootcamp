@@ -1,7 +1,6 @@
 <template>
     <b-list-group>
       <todo-list-item
-        v-on:mark-todo="markTodo"
         v-for="todo in todos"
         :key="todo.label"
         :label="todo.label"
@@ -12,44 +11,24 @@
 </template>
 
 <script>
-import Vue from "vue";
+import axios from "axios";
 import todoListItem from "~/components/todoListItem.vue";
 import bListGroup from "bootstrap-vue/es/components/list-group/list-group";
 
 export default {
-  props: {
-    todos: {
-      type: Array
-    }
-  },
-  data() {
-    return {};
-  },
   computed: {
-    computedTodos: {
-      get() {
-        return this.todos ? this.todos : [];
-      },
-      set() {}
+    todos() {
+      return this.$store.getters.todos ? this.$store.getters.todos : [];
     }
   },
   components: {
     "b-list-group": bListGroup,
     "todo-list-item": todoListItem
   },
-  mounted: async function() {},
-  methods: {
-    markTodo(id) {
-      Vue.set(
-        this,
-        "computedTodos",
-        this.computedTodos.map(todo => {
-          todo.id == id ? (todo.completed = !todo.completed) : null;
-          return todo;
-        })
-      );
-    }
-  }
+  mounted: async function() {
+    await this.$store.dispatch('initTodos')
+  },
+  methods: {}
 };
 </script>
 
