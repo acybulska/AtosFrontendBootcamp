@@ -12,13 +12,13 @@
 
 <script>
 import Vue from "vue";
-import bListGroup from 'bootstrap-vue/es/components/list-group/list-group';
+import bListGroup from "bootstrap-vue/es/components/list-group/list-group";
 import bookListItem from "~/components/BookListItem";
 
 export default {
   computed: {
     books() {
-        return this.$store.getters.books ? this.$store.getters.books : []
+      return this.$store.getters.books ? this.$store.getters.books : [];
     }
   },
   components: {
@@ -26,7 +26,7 @@ export default {
     "book-list-item": bookListItem
   },
   mounted: async function() {
-    await this.$store.dispatch("initBooks")
+    await this.$store.dispatch("initBooks");
   }
 };
 </script>

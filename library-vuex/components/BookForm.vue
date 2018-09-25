@@ -3,7 +3,7 @@
     <b-form-input v-model="book.description" placeholder="Author"/>
     <b-form-input v-model="book.title" placeholder="Title"/>
     <b-input-group-append>
-      <b-btn size="sm" text="Button" variant="success" @click="$emit('add-todo', book)">Add</b-btn>
+      <b-btn size="sm" text="Button" variant="success" @click="addBook(book)">Add</b-btn>
     </b-input-group-append>
   </b-input-group>
 </template>
@@ -22,6 +22,12 @@ export default {
   },
   components: {
     "b-input-group": bInputGroup
+  },
+  methods: {
+    addBook(book) {
+      console.log(book)
+      this.$store.dispatch("addBook", {book: book})
+    }
   }
 };
 </script>

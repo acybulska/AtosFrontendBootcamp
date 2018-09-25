@@ -21,8 +21,8 @@ import bButton from "bootstrap-vue/es/components/button/button";
 export default {
   props: {
     bookId: {
-      type: Number,
-      default: 0
+      type: String,
+      default: ""
     },
     bookTitle: {
       type: String,
