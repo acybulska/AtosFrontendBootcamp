@@ -8,7 +8,7 @@
       >  -->
       <b-form-input v-model="bookAuthor" placeholder="Author"/>
       <b-form-input v-model="bookTitle" placeholder="Title"/>
-      <b-button class="float-right" size="md" variant="danger" @click="deleteBook(book.id)">
+      <b-button class="float-right" size="md" variant="danger" @click="deleteBook(bookId)">
         Delete
       </b-button>
     </b-list-group-item>
@@ -40,10 +40,10 @@ export default {
   },
   methods: {
     markBook(id) {
-      this.$store.commit("markTodo", { id: id });
+      // this.$store.commit("markTodo", { id: id });
     },
     deleteBook(id) {
-      this.$store.commit("deleteTodo", { id: id });
+      this.$store.dispatch("deleteBook", { id: id });
     }
   }
 };

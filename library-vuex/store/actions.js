@@ -5,8 +5,14 @@ export default {
   markBook({ commit }, payload) {
     commit('markBook', payload.id)
   },
-  deleteBook({ commit }, payload) {
-    commit('deleteBook', payload.id)
+  async deleteBook({ commit }, payload) {
+    await axios({
+      method: 'delete',
+      url: 'http://bootcamp.opole.pl/books/delete-book/' + payload.id + '/mx5t'
+    }).then(function (response) {
+      console.log(response.data)
+      commit('deleteBook', payload.id)
+    })
   },
   async addBook({ commit }, payload) {
     const params = new URLSearchParams();
