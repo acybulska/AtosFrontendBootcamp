@@ -1,16 +1,18 @@
 <template>
-  <section class="container">
-    <div>
+  <b-container>
+    <b-jumbotron header="My Library App">
       <book-form></book-form>
       <!-- <book-filter></book-filter> -->
-      <book-list></book-list>
-    </div>
-  </section>
+    </b-jumbotron>
+    <book-list></book-list>
+  </b-container>
 </template>
 
 <script>
 import Vue from "vue";
 import axios from "axios";
+import BootstrapVue from 'bootstrap-vue';
+
 import bookForm from "~/components/BookForm";
 import bookList from "~/components/BookList";
 
@@ -23,7 +25,7 @@ export default {
 </script>
 
 <style>
-.container {
+/* .container {
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -33,7 +35,7 @@ export default {
 
 .title {
   font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
   display: block;
   font-weight: 300;
   font-size: 100px;
@@ -51,6 +53,6 @@ export default {
 
 .links {
   padding-top: 15px;
-}
+} */
 </style>
 

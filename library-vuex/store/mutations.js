@@ -15,7 +15,8 @@ export default {
   },
   addBook: (state, book) => {
     let newBooks = state.books
-    newBooks.push({ description: book.description, title:book.title })
+    console.log(newBooks)
+    newBooks.push({ description: book.description, title: book.title, id: book.id })
     Vue.set(state, "books", newBooks);
   },
   initBooks: (state, books) => {

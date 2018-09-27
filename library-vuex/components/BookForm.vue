@@ -1,4 +1,5 @@
 <template>
+
   <b-input-group size="md" class="mb-3" prepend="Add new book">
     <b-form-input v-model="book.description" placeholder="Author"/>
     <b-form-input v-model="book.title" placeholder="Title"/>
@@ -16,7 +17,8 @@ export default {
     return {
       book: {
         title: "",
-        description: ""
+        description: "",
+        id: ""
       }
     };
   },
@@ -26,7 +28,7 @@ export default {
   methods: {
     addBook(book) {
       console.log(book)
-      this.$store.dispatch("addBook", {book: book})
+      this.$store.dispatch("addBook", {book: book})     
     }
   }
 };

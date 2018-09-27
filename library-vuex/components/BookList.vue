@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import Vue from "vue";
 import bListGroup from "bootstrap-vue/es/components/list-group/list-group";
+
 import bookListItem from "~/components/BookListItem";
 
 export default {
