@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import axios from 'axios'
 
 export default {
   deleteBook(state, id) {
@@ -15,11 +14,13 @@ export default {
   },
   addBook: (state, book) => {
     let newBooks = state.books
-    console.log(newBooks)
     newBooks.push({ description: book.description, title: book.title, id: book.id })
     Vue.set(state, "books", newBooks);
   },
   initBooks: (state, books) => {
     Vue.set(state, "books", books)
+  },
+  multipleID: (state, multipleID) => {
+    Vue.set(state, "multipleID", multipleID)
   }
 }

@@ -1,5 +1,4 @@
 <template>
-
   <b-input-group size="md" class="mb-3" prepend="Add new book">
     <b-form-input v-model="book.description" placeholder="Author"/>
     <b-form-input v-model="book.title" placeholder="Title"/>

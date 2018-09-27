@@ -1,9 +1,9 @@
 <template>
   <b-row>
     <b-col lg="12">
-      <b-input-group>
+      <b-input-group class="bookItem">
         <b-input-group-prepend is-text>
-          <input type="checkbox" aria-label="Edit item or delete multiple checkbox" @change="disableInput = !disableInput" />
+          <input type="checkbox" aria-label="Edit item or delete multiple checkbox" v-model="multipleID" :value="book.id" @change="disableInput = !disableInput" />
         </b-input-group-prepend>
         <b-form-input v-model="book.description" placeholder="Author" @change="editBook()" :disabled="disableInput"/>
         <b-form-input v-model="book.title" placeholder="Title" @change="editBook()" :disabled="disableInput"/>
@@ -30,6 +30,16 @@ export default {
       disableInput: true
     };
   },
+  computed: {
+    multipleID: {
+      get() {
+        return this.$store.getters.multipleID
+      },
+      set(value) {
+        this.$store.commit('multipleID', value)
+      }
+    }
+  },
   props: {
     bookId: {
       type: String,
@@ -50,21 +60,20 @@ export default {
   },
   methods: {
     markBook(id) {
-      // this.$store.commit("markTodo", { id: id });
-      // :value="toList"
-      //    :checked="toList"
-      //    @change="markBook(book.id)"
+      this.disableInput = !this.disableInput;
     },
     deleteBook(id) {
       this.$store.dispatch("deleteBook", { id: id });
     },
     editBook() {
       this.$store.dispatch("editBook", { book: this.book });
-    },
-    toList() {}
+    }
   }
 };
 </script>
 
 <style>
+.bookItem {
+  margin: 2px;
+}
 </style>

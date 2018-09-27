@@ -25,12 +25,10 @@ export default {
     }).then(function (response) {
       console.log(response.data)
       payload.book.id=response.data.new_id
-      console.log(payload.book)
       commit('addBook', payload.book)
     })
   },
   async editBook({ commit }, payload) {
-    console.log(payload)
     const params = new URLSearchParams();
     params.append('title', payload.book.title);
     params.append('description', payload.book.description);
