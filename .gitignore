@@ -1,9 +1,9 @@
 .vscode
 .vs
-node_modules
+node_modules/
 .DS_Store
-dist
+dist/
 npm-debug.log*
 yarn-error.log*
-.nuxt
+.nuxt/
 bootcamp-vuejs*
